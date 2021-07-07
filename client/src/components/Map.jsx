@@ -12,14 +12,16 @@ const center = {
   lng: -122.431297
 };
 
-function Map() {
+function Map(props) {
+
+
   return (
     <LoadScript
       googleMapsApiKey={config.token}
     >
   <GoogleMap
     mapContainerStyle={containerStyle}
-    center={center}
+    center={props.center}
     zoom={10}
   >
 
