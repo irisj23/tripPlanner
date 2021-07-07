@@ -1,5 +1,6 @@
 import React from 'react';
 import Map from '../components/Map.jsx';
+import Form from '../components/Form.jsx';
 
 function App() {
 
@@ -7,6 +8,7 @@ function App() {
    <>
    hi
    <Map/>
+   <Form/>
    </>
 
   );
