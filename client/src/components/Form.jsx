@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 
 
-function Form() {
+function Form(props) {
 
   const [destination, setDestination] = useState('');
 
   const handleSubmitDest = (event) => {
     event.preventDefault();
 
-    // props.getDestination(destination);
+    props.getDestination(destination);
     console.log(destination)
     setDestination('');
   }
