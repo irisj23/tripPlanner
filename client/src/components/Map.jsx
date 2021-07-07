@@ -1,16 +1,16 @@
 import React from 'react';
 import config from '../../../config.js';
-import { GoogleMap, LoadScript } from '@react-google-maps/api';
+import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
 const containerStyle = {
-  width: '400px',
-  height: '400px'
+  width: '650px',
+  height: '650px'
 };
 
-const center = {
+const center = [{
   lat: 37.773972,
   lng: -122.431297
-};
+}];
 
 function Map(props) {
 
@@ -22,13 +22,19 @@ function Map(props) {
   <GoogleMap
     mapContainerStyle={containerStyle}
     center={props.center}
-    zoom={10}
+    zoom={12}
   >
 
-  <></>
+
+  <Marker
+    position={center[0]}/>
+
+
   </GoogleMap>
+
+
     </LoadScript>
   )
 }
 
-export default Map;
+export default React.memo(Map);
