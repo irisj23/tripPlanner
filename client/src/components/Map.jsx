@@ -1,6 +1,6 @@
 import React from 'react';
 import config from '../../../config.js';
-import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import { GoogleMap, useLoadScript, Marker, StandaloneSearchBox } from '@react-google-maps/api';
 
 const containerStyle = {
   width: '650px',
@@ -13,28 +13,75 @@ const center = [{
 }];
 
 function Map(props) {
+  const onLoad = ref => this.searchBox = ref;
 
+  // const onPlacesChanged = () => console.log(this.searchBox.getPlaces());
 
-  return (
-    <LoadScript
-      googleMapsApiKey={config.token}
-    >
-  <GoogleMap
+  const {isLoaded, loadError} = useLoadScript({
+    googleMapsApiKey: config.token
+  })
+
+  const renderMap = () => {
+
+    return   <GoogleMap
     mapContainerStyle={containerStyle}
     center={props.center}
     zoom={12}
-  >
+    ></GoogleMap>
+  }
 
-
-  <Marker
-    position={center[0]}/>
-
-
-  </GoogleMap>
-
-
-    </LoadScript>
-  )
+  if (loadError) {
+    return <div>Error loading Map</div>
+  }
+  return isLoaded ? renderMap() : <div>noooo</div>
 }
 
-export default React.memo(Map);
+//   return (
+//     <useLoadScript
+//       googleMapsApiKey={config.token}
+//     >
+//   <GoogleMap
+//     mapContainerStyle={containerStyle}
+//     center={props.center}
+//     zoom={12}
+//   >
+
+
+//   <Marker
+//     position={center[0]}/>
+
+// <StandaloneSearchBox
+//       onLoad={onLoad}
+//       onPlacesChanged={
+//         onPlacesChanged
+//       }
+//     >
+//       <input
+//         type="text"
+//         placeholder="Customized your placeholder"
+//         style={{
+//           boxSizing: `border-box`,
+//           border: `1px solid transparent`,
+//           width: `240px`,
+//           height: `32px`,
+//           padding: `0 12px`,
+//           borderRadius: `3px`,
+//           boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
+//           fontSize: `14px`,
+//           outline: `none`,
+//           textOverflow: `ellipses`,
+//           position: "absolute",
+//           left: "50%",
+//           marginLeft: "-120px"
+//         }}
+//       />
+//     </StandaloneSearchBox>
+
+//   </GoogleMap>
+
+
+//     </useLoadScript>
+//   )
+// }
+
+export default Map;

@@ -3,6 +3,7 @@ import axios from 'axios';
 import Map from '../components/Map.jsx';
 import Form from '../components/Form.jsx';
 import MarkerEx from '../components/Marker.jsx';
+// import Search from '../components/Search.jsx';
 
 function App() {
   const [location, setLocation] = useState('');
@@ -31,6 +32,7 @@ function App() {
    <>
    hi
    {/* <MarkerEx/> */}
+   {/* <Search/> */}
    <Map
    center={center}
    />
