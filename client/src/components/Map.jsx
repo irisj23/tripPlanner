@@ -24,48 +24,65 @@ function Map(props) {
 
   const [selected, setSelected] = useState({});
   const [travelMode, setTravelMode] = useState('DRIVING');
-  // const [directions, setDirections] = useState(null);
+  const [directions, setDirections] = useState(null);
 
   console.log('props')
   console.log(props.locations)
 
-//   const getDirections = () => {
-//     if (props.locations.length > 1) {
-//       const waypoints = props.locations.map(p =>({
-//         location: {lat: p.lat, lng: p.lng},
-//         stopover: true
-//     }));
+  const getDirections = () => {
 
-//     const origin = waypoints.shift().location;
-//     const destination = waypoints.pop().location;
+      const waypoints = props.locations.map(p =>({
+        location: p.name,
+        stopover: true
+    }));
 
-//     const directionsService = new google.maps.DirectionsService();
-//     directionsService.route(
-//       {
-//         origin: origin,
-//         destination: destination,
-//         waypoints: waypoints
-//       },
-//       (result, status) => {
-//         if (status === google.maps.DirectionsStatus.OK) {
-//           setDirections(response);
-//         } else {
-//           console.log(response)
-//         }
-//       }
-//     )
-//   } else {
-//     return;
-//   }
-// }
+    const origin = waypoints.shift().location;
+    const destination = waypoints.pop().location;
+
+    const directionsService = new google.maps.DirectionsService();
+    console.log("MAKING REQUEST");
+    console.log("dirservice=" + directionsService);
+
+    // start here, hardcode stuff
+    const directionsRequest = {
+        origin: origin,
+        destination: destination,
+        travelMode: travelMode,
+        waypoints: waypoints
+    }
+
+    console.log("dirRequest=");
+    console.log(directionsRequest);
+
+    directionsService.route(directionsRequest, (result, status) => {
+      console.log("GOT RESPONSE");
+      console.log(status);
+      console.log(result);
+
+      if (status === google.maps.DirectionsStatus.OK) {
+        setDirections(result);
+      } else {
+        console.log(result);
+      }
+    });
+}
+
+if (props.locations.length > 1) {
+  getDirections();
+}
+
+
+  const handleTravelMode = (type) => {
+    setTravelMode(type);
+  }
 
 
   const onSelect = (item) => {
-    setSelected(item)
+    setSelected(item);
   }
 
   const renderMap = () => {
-    console.log("render map with props.directions=" + props.directions);
+    // console.log("render map with props.directions=" + props.directions);
 
     return (
       <>
@@ -95,12 +112,9 @@ function Map(props) {
           </InfoWindow>
         )}
 
-        {props.directions && (
+        {directions && false && (
           <DirectionsRenderer
-            options={{
-              directions: props.directions,
-              travelMode: 'DRIVING'
-            }}
+            directions={directions}
           />
         )}
 
@@ -109,7 +123,7 @@ function Map(props) {
 
         <Form
           handleAddPlace={props.handleAddPlace}
-          travelMode={travelMode}
+          handleTravelMode={handleTravelMode}
         />
         <br/>
         <div>hi??</div>

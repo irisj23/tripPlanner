@@ -38,16 +38,16 @@ function App() {
     setLocations(newPlaces);
     console.log(locations);
 
-    if (newPlaces.length > 1) {
-      const newOrigin = newPlaces[0].name;
-      const newDestination = newPlaces[1].name;
-      setOrigin(newOrigin);
-      setDestination(newDestination);
+    // if (newPlaces.length > 1) {
+    //   const newOrigin = newPlaces[0].name;
+    //   const newDestination = newPlaces[1].name;
+    //   setOrigin(newOrigin);
+    //   setDestination(newDestination);
 
-      const response = await axios.get(`/directions?origin=${newOrigin}&destination=${newDestination}`);
-      console.log(response);
-      setDirections(response.data);
-    }
+    //   const response = await axios.get(`/directions?origin=${newOrigin}&destination=${newDestination}`);
+    //   console.log(response);
+    //   setDirections(response.data);
+    // }
   };
 
   const renderPage = () => {

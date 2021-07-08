@@ -22,8 +22,9 @@ function Form(props) {
     }
   }
 
-  const handleTransit = () => {
-    console.log('transit')
+  const handleTransit = (event) => {
+    console.log(event.target.value)
+    props.handleTravelMode(event.target.value)
   }
 
   return (
