@@ -1,3 +1,4 @@
+/*global google */
 import React, { useState, useEffect } from 'react';
 import config from '../../../config.js';
 import axios from 'axios';
@@ -22,7 +23,8 @@ function Map(props) {
   })
 
   const [selected, setSelected] = useState({});
-  const [directions, setDirections] = useState(null);
+  const [travelMode, setTravelMode] = useState('DRIVING');
+  // const [directions, setDirections] = useState(null);
 
   console.log('props')
   console.log(props.locations)
@@ -64,6 +66,7 @@ function Map(props) {
 
   const renderMap = () => {
     console.log("render map with props.directions=" + props.directions);
+
     return (
       <>
         <GoogleMap
@@ -94,7 +97,10 @@ function Map(props) {
 
         {props.directions && (
           <DirectionsRenderer
-            options={{directions: props.directions}}
+            options={{
+              directions: props.directions,
+              travelMode: 'DRIVING'
+            }}
           />
         )}
 
@@ -103,6 +109,7 @@ function Map(props) {
 
         <Form
           handleAddPlace={props.handleAddPlace}
+          travelMode={travelMode}
         />
         <br/>
         <div>hi??</div>
