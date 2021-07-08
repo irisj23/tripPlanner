@@ -39,42 +39,44 @@ function Map(props) {
 
     return (
       <>
-      <GoogleMap
-        mapContainerStyle={containerStyle}
-        center={props.center}
-        zoom={12}
-      >
-
-      {locations.map((location, index) => {
-        return <Marker
-          key={index}
-          icon={"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"}
-          position={location.coordinates}
-          onClick={() => onSelect(location)}
-        />
-      })}
-
-      {selected.coordinates &&
-      (
-        <InfoWindow
-          position={selected.coordinates}
-          clickable={true}
-          onCloseClick={() => setSelected({})}
+        <GoogleMap
+          mapContainerStyle={containerStyle}
+          center={props.center}
+          zoom={12}
         >
-          <p>{selected.name}</p>
-        </InfoWindow>
-      )}
 
-      </GoogleMap>
-      <br/>
-      <Form
-        handleAddPlace={handleAddPlace}
-      />
-      <br/>
-      <div>hi??</div>
-      <PlaceList
-        locations={locations}
-      />
+        {locations.map((location, index) => {
+          return <Marker
+            key={index}
+            icon={"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"}
+            position={location.coordinates}
+            onClick={() => onSelect(location)}
+          />
+        })}
+
+        {selected.coordinates &&
+        (
+          <InfoWindow
+            position={selected.coordinates}
+            clickable={true}
+            onCloseClick={() => setSelected({})}
+          >
+            <p>{selected.name}</p>
+          </InfoWindow>
+        )}
+
+        </GoogleMap>
+        <br/>
+
+        <Form
+          handleAddPlace={handleAddPlace}
+        />
+        <br/>
+        <div>hi??</div>
+
+        <PlaceList
+          locations={locations}
+        />
       </>
     )
   }
