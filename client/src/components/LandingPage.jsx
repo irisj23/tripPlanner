@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import { StandaloneSearchBox } from '@react-google-maps/api';
 
 function LandingPage(props) {
 

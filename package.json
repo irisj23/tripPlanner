@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/irisj23/tripPlanner#readme",
   "dependencies": {
+    "@material-ui/core": "^4.12.1",
     "@react-google-maps/api": "^2.2.0",
     "axios": "^0.21.1",
     "express": "^4.17.1",

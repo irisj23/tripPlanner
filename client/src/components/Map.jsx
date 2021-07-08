@@ -10,7 +10,7 @@ const containerStyle = {
   height: '550px'
 };
 
-const center = [{
+const centerSample = [{
   lat: 37.773972,
   lng: -122.431297
 }];
@@ -21,61 +21,41 @@ function Map(props) {
     googleMapsApiKey: config.token
   })
 
-  // const [locations, setLocations] = useState([]);
   const [selected, setSelected] = useState({});
-  const [origin, setOrigin] = useState('');
-  const [destination, setDestination] = useState('');
-  const [response, setResponse] = useState(null);
   const [directions, setDirections] = useState(null);
 
-  // const handleAddPlace = (newPlace) => {
-  //   let newPlaces = locations.concat(newPlace);
-  //   setLocations(newPlaces);
-  //   console.log(locations)
-
-    // if (locations.length > 1) {
-    //   setOrigin(locations[0].name);
-    //   setDestination(locations[1].name);
-    //   console.log(origin)
-    //   console.log(destination)
-    //   const res = await axios.get(`/directions?origin=${origin}&destination=${destination}`);
-    //   console.log(res)
-    //   setResponse(res);
-    // }
-
-  // }
   console.log('props')
   console.log(props.locations)
 
-  const getDirections = () => {
-    if (props.locations.length > 1) {
-      const waypoints = props.locations.map(p =>({
-        location: {lat: p.lat, lng: p.lng},
-        stopover: true
-    }));
+//   const getDirections = () => {
+//     if (props.locations.length > 1) {
+//       const waypoints = props.locations.map(p =>({
+//         location: {lat: p.lat, lng: p.lng},
+//         stopover: true
+//     }));
 
-    const origin = waypoints.shift().location;
-    const destination = waypoints.pop().location;
+//     const origin = waypoints.shift().location;
+//     const destination = waypoints.pop().location;
 
-    const directionsService = new google.maps.DirectionsService();
-    directionsService.route(
-      {
-        origin: origin,
-        destination: destination,
-        waypoints: waypoints
-      },
-      (result, status) => {
-        if (status === google.maps.DirectionsStatus.OK) {
-          setDirections(response);
-        } else {
-          console.log(response)
-        }
-      }
-    )
-  } else {
-    return;
-  }
-}
+//     const directionsService = new google.maps.DirectionsService();
+//     directionsService.route(
+//       {
+//         origin: origin,
+//         destination: destination,
+//         waypoints: waypoints
+//       },
+//       (result, status) => {
+//         if (status === google.maps.DirectionsStatus.OK) {
+//           setDirections(response);
+//         } else {
+//           console.log(response)
+//         }
+//       }
+//     )
+//   } else {
+//     return;
+//   }
+// }
 
 
   const onSelect = (item) => {
@@ -83,7 +63,7 @@ function Map(props) {
   }
 
   const renderMap = () => {
-
+    console.log("render map with props.directions=" + props.directions);
     return (
       <>
         <GoogleMap
@@ -112,9 +92,9 @@ function Map(props) {
           </InfoWindow>
         )}
 
-        {response && (
+        {props.directions && (
           <DirectionsRenderer
-            directions={directions}
+            options={{directions: props.directions}}
           />
         )}
 

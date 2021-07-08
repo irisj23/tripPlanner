@@ -10,10 +10,10 @@ function App() {
 
   const [locations, setLocations] = useState([]);
   const [clicked, setClicked] = useState(false);
-
-  // const [lat, setLat] = useState('');
-  // const [long, setLong] = useState('');
-  const [center, setCenter] = useState({lat: 34.052235, lng: -118.243683});
+  const [center, setCenter] = useState({});
+  const [origin, setOrigin] = useState('');
+  const [directions, setDirections] = useState(null);
+  const [destination, setDestination] = useState('');
   const [isError, setIsError] = useState(false);
 
   const getCenterDestination = async (destination) => {
@@ -21,7 +21,7 @@ function App() {
     console.log('hey')
     console.log(destination)
     try {
-      const res = await axios.get(`/place?input=${destination}`)
+      const res = await axios.get(`/place?input=${destination}`);
       // console.log('app result here:')
       // console.log(res.data)
       setCenter(res.data)
@@ -31,14 +31,24 @@ function App() {
       console.log(error)
       setIsError(true);
     }
-  }
+  };
 
-  const handleAddPlace = (newPlace) => {
+  const handleAddPlace = async (newPlace) => {
     let newPlaces = locations.concat(newPlace);
     setLocations(newPlaces);
-    console.log(locations)
+    console.log(locations);
 
-  }
+    if (newPlaces.length > 1) {
+      const newOrigin = newPlaces[0].name;
+      const newDestination = newPlaces[1].name;
+      setOrigin(newOrigin);
+      setDestination(newDestination);
+
+      const response = await axios.get(`/directions?origin=${newOrigin}&destination=${newDestination}`);
+      console.log(response);
+      setDirections(response.data);
+    }
+  };
 
   const renderPage = () => {
     if (!clicked) {
@@ -46,44 +56,32 @@ function App() {
         <LandingPage
           getCenterDestination={getCenterDestination}
         />
-      )
+      );
     } else {
-      return (
+        return (
         <>
-        <Map
-          center={center}
+          <Map
+            center={center}
+            locations={locations}
+            handleAddPlace={handleAddPlace}
+            origin={origin}
+            destination={destination}
+            directions={directions}
+          />
+          <PlaceList
           locations={locations}
-          handleAddPlace={handleAddPlace}
-        />
-        <PlaceList
-        locations={locations}
-      />
-      </>
-      )
+          />
+        </>
+      );
     }
-  }
+  };
 
   return (
     <>
-
       hi
       {renderPage()}
-          {/* only show landingpage is location.length is 0, else show map */}
-      {/* <LandingPage
-        getCenterDestination={getCenterDestination}
-      /> */}
-      {/* <Search/> */}
-      {/* <SearchBox/> */}
-      {/* <Map
-        center={center}
-        locations={locations}
-        handleAddPlace={handleAddPlace}
-      /> */}
-
     </>
-
   );
 }
 
 export default App;
-
