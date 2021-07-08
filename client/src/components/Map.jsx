@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import config from '../../../config.js';
+import axios from 'axios';
 import Form from '../components/Form.jsx';
 import PlaceList from '../components/PlaceList.jsx';
-import { GoogleMap, useLoadScript, Marker, InfoWindow, StandaloneSearchBox } from '@react-google-maps/api';
+import { GoogleMap, useLoadScript, Marker, InfoWindow, DirectionsRenderer, StandaloneSearchBox } from '@react-google-maps/api';
 
 const containerStyle = {
   width: '550px',
@@ -15,21 +16,29 @@ const center = [{
 }];
 
 function Map(props) {
-  // const onLoad = ref => this.searchBox = ref;
-  // const onPlacesChanged = () => console.log(this.searchBox.getPlaces());
-
-  const [locations, setLocations] = useState([]);
-  const [selected, setSelected] = useState({});
 
   const {isLoaded, loadError} = useLoadScript({
     googleMapsApiKey: config.token
   })
 
-  const handleAddPlace = (newPlace) => {
-    let newPlaces = locations.concat(newPlace);
-    setLocations(newPlaces)
-  }
+  const [locations, setLocations] = useState([]);
+  const [selected, setSelected] = useState({});
+  const [origin, setOrigin] = useState('');
+  const [destination, setDestination] = useState('');
+  const [response, setResponse] = useState(null);
 
+  const handleAddPlace = async (newPlace) => {
+    let newPlaces = locations.concat(newPlace);
+    setLocations(newPlaces);
+
+    if (locations.length > 1) {
+      setOrigin(locations[0].name);
+      setDestination(locations[1].name);
+
+      const res = axios.get(`/directions?origin=${origin}&destination=${destination}`);
+      setResponse(res);
+    }
+  }
 
   const onSelect = (item) => {
     setSelected(item)
@@ -64,6 +73,15 @@ function Map(props) {
             <p>{selected.name}</p>
           </InfoWindow>
         )}
+
+        {response && (
+          <DirectionsRenderer
+          options={{
+            directions: response
+          }}
+          />
+        )}
+
 
         </GoogleMap>
         <br/>
