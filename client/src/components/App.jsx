@@ -3,10 +3,13 @@ import axios from 'axios';
 import Map from '../components/Map.jsx';
 import LandingPage from '../components/LandingPage.jsx';
 import SearchBox from '../components/SearchBox.jsx';
+import PlaceList from '../components/PlaceList.jsx';
 // import Search from '../components/Search.jsx';
 
 function App() {
-  // const [location, setLocation] = useState('');
+
+  const [locations, setLocations] = useState([]);
+  const [clicked, setClicked] = useState(false);
 
   // const [lat, setLat] = useState('');
   // const [long, setLong] = useState('');
@@ -22,6 +25,7 @@ function App() {
       // console.log('app result here:')
       // console.log(res.data)
       setCenter(res.data)
+      setClicked(true);
 
     } catch (error) {
       console.log(error)
@@ -29,38 +33,54 @@ function App() {
     }
   }
 
-  // const renderPage = () => {
-  //   if (location.length === 0) {
-  //     return (
-  //       <LandingPage
-  //       getCenterDestination={getCenterDestination}
-  //       />
-  //     )
-  //   } else {
-  //     return (
-  //       <Map
-  //       center={center}
-  //       />
-  //     )
-  //   }
-  // }
+  const handleAddPlace = (newPlace) => {
+    let newPlaces = locations.concat(newPlace);
+    setLocations(newPlaces);
+    console.log(locations)
+
+  }
+
+  const renderPage = () => {
+    if (!clicked) {
+      return (
+        <LandingPage
+          getCenterDestination={getCenterDestination}
+        />
+      )
+    } else {
+      return (
+        <>
+        <Map
+          center={center}
+          locations={locations}
+          handleAddPlace={handleAddPlace}
+        />
+        <PlaceList
+        locations={locations}
+      />
+      </>
+      )
+    }
+  }
 
   return (
-   <>
+    <>
 
-   hi
-      {/* only show landingpage is location.length is 0, else show map */}
-   <LandingPage
-    getCenterDestination={getCenterDestination}
-    />
-   {/* <MarkerEx/> */}
-   {/* <Search/> */}
-   {/* <SearchBox/> */}
-   <Map
-   center={center}
-   />
+      hi
+      {renderPage()}
+          {/* only show landingpage is location.length is 0, else show map */}
+      {/* <LandingPage
+        getCenterDestination={getCenterDestination}
+      /> */}
+      {/* <Search/> */}
+      {/* <SearchBox/> */}
+      {/* <Map
+        center={center}
+        locations={locations}
+        handleAddPlace={handleAddPlace}
+      /> */}
 
-   </>
+    </>
 
   );
 }

@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import config from '../../../config.js';
 import axios from 'axios';
 import Form from '../components/Form.jsx';
-import PlaceList from '../components/PlaceList.jsx';
+
 import { GoogleMap, useLoadScript, Marker, InfoWindow, DirectionsRenderer, StandaloneSearchBox } from '@react-google-maps/api';
 
 const containerStyle = {
@@ -21,24 +21,61 @@ function Map(props) {
     googleMapsApiKey: config.token
   })
 
-  const [locations, setLocations] = useState([]);
+  // const [locations, setLocations] = useState([]);
   const [selected, setSelected] = useState({});
   const [origin, setOrigin] = useState('');
   const [destination, setDestination] = useState('');
   const [response, setResponse] = useState(null);
+  const [directions, setDirections] = useState(null);
 
-  const handleAddPlace = async (newPlace) => {
-    let newPlaces = locations.concat(newPlace);
-    setLocations(newPlaces);
+  // const handleAddPlace = (newPlace) => {
+  //   let newPlaces = locations.concat(newPlace);
+  //   setLocations(newPlaces);
+  //   console.log(locations)
 
-    if (locations.length > 1) {
-      setOrigin(locations[0].name);
-      setDestination(locations[1].name);
+    // if (locations.length > 1) {
+    //   setOrigin(locations[0].name);
+    //   setDestination(locations[1].name);
+    //   console.log(origin)
+    //   console.log(destination)
+    //   const res = await axios.get(`/directions?origin=${origin}&destination=${destination}`);
+    //   console.log(res)
+    //   setResponse(res);
+    // }
 
-      const res = axios.get(`/directions?origin=${origin}&destination=${destination}`);
-      setResponse(res);
+  // }
+  console.log('props')
+console.log(props.locations)
+  const getDirections = () => {
+    if (props.locations.length > 1) {
+      const waypoints = props.locations.map(p =>({
+        location: {lat: p.lat, lng: p.lng},
+        stopover: true
+    }))
+    const origin = waypoints.shift().location;
+    const destination = waypoints.pop().location;
+
+    const directionsService = new google.maps.DirectionsService();
+    directionsService.route(
+      {
+        origin: origin,
+        destination: destination,
+        waypoints: waypoints
+      },
+      (result, status) => {
+        if (status === google.maps.DirectionsStatus.OK) {
+          setDirections(response);
+        } else {
+          console.log(response)
+        }
+      }
+    );
+    } else {
+      return;
     }
-  }
+
+}
+
 
   const onSelect = (item) => {
     setSelected(item)
@@ -54,7 +91,7 @@ function Map(props) {
           zoom={12}
         >
 
-        {locations.map((location, index) => {
+        {props.locations.length > 0 && props.locations.map((location, index) => {
           return <Marker
             key={index}
             icon={"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"}
@@ -76,25 +113,20 @@ function Map(props) {
 
         {response && (
           <DirectionsRenderer
-          options={{
-            directions: response
-          }}
+            directions={directions}
           />
         )}
-
 
         </GoogleMap>
         <br/>
 
         <Form
-          handleAddPlace={handleAddPlace}
+          handleAddPlace={props.handleAddPlace}
         />
         <br/>
         <div>hi??</div>
 
-        <PlaceList
-          locations={locations}
-        />
+
       </>
     )
   }

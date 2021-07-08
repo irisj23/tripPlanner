@@ -6,7 +6,7 @@ function PlaceList(props) {
   return(
     <>
       <ul>
-      {props.locations.map((location, index) => {
+      {props.locations.length > 0 && props.locations.map((location, index) => {
         return <PlaceListItem
           key={index}
           place={location.name}
