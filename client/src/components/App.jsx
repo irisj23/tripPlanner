@@ -1,3 +1,4 @@
+/*global google */
 import React, { useState } from 'react';
 import axios from 'axios';
 import Map from '../components/Map.jsx';
@@ -15,11 +16,13 @@ function App() {
   const [directions, setDirections] = useState(null);
   const [destination, setDestination] = useState('');
   const [isError, setIsError] = useState(false);
+  const [travelMode, setTravelMode] = useState('DRIVING');
+
 
   const getCenterDestination = async (destination) => {
 
-    console.log('hey')
-    console.log(destination)
+    // console.log('hey')
+    // console.log(destination)
     try {
       const res = await axios.get(`/place?input=${destination}`);
       // console.log('app result here:')
@@ -33,22 +36,56 @@ function App() {
     }
   };
 
-  const handleAddPlace = async (newPlace) => {
+  const handleAddPlace = (newPlace) => {
+
     let newPlaces = locations.concat(newPlace);
     setLocations(newPlaces);
-    console.log(locations);
+    console.log(newPlaces);
 
-    // if (newPlaces.length > 1) {
-    //   const newOrigin = newPlaces[0].name;
-    //   const newDestination = newPlaces[1].name;
-    //   setOrigin(newOrigin);
-    //   setDestination(newDestination);
+    if (newPlaces.length <= 1) {
+      return;
+    }
 
-    //   const response = await axios.get(`/directions?origin=${newOrigin}&destination=${newDestination}`);
-    //   console.log(response);
-    //   setDirections(response.data);
-    // }
+    const waypoints = newPlaces.map(p =>({
+      location: p.name,
+      stopover: true
+    }));
+
+    const origin = waypoints.shift().location;
+    const destination = waypoints.pop().location;
+
+    const directionsService = new google.maps.DirectionsService();
+    console.log("MAKING REQUEST");
+    console.log("dirservice=" + directionsService);
+
+    // start here, hardcode stuff
+    const directionsRequest = {
+        origin: origin,
+        destination: destination,
+        travelMode: travelMode,
+        waypoints: waypoints
+    }
+
+    console.log("dirRequest=");
+    console.log(directionsRequest);
+
+    directionsService.route(directionsRequest, (result, status) => {
+      console.log("GOT RESPONSE");
+      console.log(status);
+      console.log(result);
+
+      if (status === google.maps.DirectionsStatus.OK) {
+        setDirections(result);
+      } else {
+        console.log("status: " + status);
+      }
+    });
   };
+
+  const handleTravelMode = (type) => {
+    setTravelMode(type);
+  }
+
 
   const renderPage = () => {
     if (!clicked) {
@@ -67,6 +104,7 @@ function App() {
             origin={origin}
             destination={destination}
             directions={directions}
+            handleTravelMode={handleTravelMode}
           />
           <PlaceList
           locations={locations}

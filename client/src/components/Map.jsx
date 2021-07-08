@@ -23,58 +23,20 @@ function Map(props) {
   })
 
   const [selected, setSelected] = useState({});
-  const [travelMode, setTravelMode] = useState('DRIVING');
-  const [directions, setDirections] = useState(null);
+  // const [travelMode, setTravelMode] = useState('DRIVING');
+  // const [directions, setDirections] = useState(null);
 
   console.log('props')
   console.log(props.locations)
 
-  const getDirections = () => {
-
-      const waypoints = props.locations.map(p =>({
-        location: p.name,
-        stopover: true
-    }));
-
-    const origin = waypoints.shift().location;
-    const destination = waypoints.pop().location;
-
-    const directionsService = new google.maps.DirectionsService();
-    console.log("MAKING REQUEST");
-    console.log("dirservice=" + directionsService);
-
-    // start here, hardcode stuff
-    const directionsRequest = {
-        origin: origin,
-        destination: destination,
-        travelMode: travelMode,
-        waypoints: waypoints
-    }
-
-    console.log("dirRequest=");
-    console.log(directionsRequest);
-
-    directionsService.route(directionsRequest, (result, status) => {
-      console.log("GOT RESPONSE");
-      console.log(status);
-      console.log(result);
-
-      if (status === google.maps.DirectionsStatus.OK) {
-        setDirections(result);
-      } else {
-        console.log(result);
-      }
-    });
-}
-
-if (props.locations.length > 1) {
-  getDirections();
-}
+// if (props.locations.length > 1) {
+//   getDirections();
+// }
 
 
-  const handleTravelMode = (type) => {
-    setTravelMode(type);
-  }
+  // const handleTravelMode = (type) => {
+  //   setTravelMode(type);
+  // }
 
 
   const onSelect = (item) => {
@@ -112,9 +74,9 @@ if (props.locations.length > 1) {
           </InfoWindow>
         )}
 
-        {directions && false && (
+        {props.directions && (
           <DirectionsRenderer
-            directions={directions}
+            directions={props.directions}
           />
         )}
 
@@ -123,11 +85,9 @@ if (props.locations.length > 1) {
 
         <Form
           handleAddPlace={props.handleAddPlace}
-          handleTravelMode={handleTravelMode}
+          handleTravelMode={props.handleTravelMode}
         />
         <br/>
-        <div>hi??</div>
-
 
       </>
     )
