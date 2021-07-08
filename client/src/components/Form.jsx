@@ -1,14 +1,24 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 function Form(props) {
   const [location, setLocation] = useState('');
 
-  const handleSubmitLocation = (event) => {
+  const handleSubmitLocation = async (event) => {
     event.preventDefault();
-    console.log('place added!')
-    console.log(location)
-    props.handleAddPlace(location)
-    setLocation('');
+
+    try {
+      console.log(location)
+      const res = await axios.get(`/place?input=${location}`)
+      props.handleAddPlace(location)
+      let data = res.data
+      console.log('form result here:')
+      console.log(res.data)
+      props.handleAddMarker(data);
+      setLocation('');
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (

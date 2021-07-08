@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import Map from '../components/Map.jsx';
 import LandingPage from '../components/LandingPage.jsx';
-import MarkerEx from '../components/Marker.jsx';
 import SearchBox from '../components/SearchBox.jsx';
 // import Search from '../components/Search.jsx';
 
@@ -20,8 +19,8 @@ function App() {
     console.log(destination)
     try {
       const res = await axios.get(`/place?input=${destination}`)
-      console.log('app result here:')
-      console.log(res.data)
+      // console.log('app result here:')
+      // console.log(res.data)
       setCenter(res.data)
 
     } catch (error) {

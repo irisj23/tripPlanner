@@ -19,18 +19,20 @@ function Map(props) {
   // const onPlacesChanged = () => console.log(this.searchBox.getPlaces());
 
   const [locations, setLocations] = useState([]);
+  const [markers, setMarkers] = useState([]);
 
   const {isLoaded, loadError} = useLoadScript({
     googleMapsApiKey: config.token
   })
 
   const handleAddPlace = (newPlace) => {
-    console.log('NEW PLACE HERE')
-    console.log(newPlace)
     let newPlaces = locations.concat(newPlace);
     setLocations(newPlaces)
-    console.log('LOCATIONS HERE')
-    console.log(locations)
+  }
+
+  const handleAddMarker = (newMarker) => {
+    let newMarkers = markers.concat(newMarker)
+    setMarkers(newMarkers);
   }
 
   const renderMap = () => {
@@ -43,15 +45,19 @@ function Map(props) {
         zoom={12}
       >
 
-      <Marker
-       icon={"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"}
-        position={center[0]}
-      />
+      {markers.map((mark, index) => {
+        return <Marker
+          icon={"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"}
+          position={mark}
+        />
+      })}
+
 
       </GoogleMap>
       <br/>
       <Form
         handleAddPlace={handleAddPlace}
+        handleAddMarker={handleAddMarker}
       />
       <br/>
       <div>hi??</div>
