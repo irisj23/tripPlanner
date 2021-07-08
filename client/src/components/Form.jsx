@@ -10,11 +10,12 @@ function Form(props) {
     try {
       console.log(location)
       const res = await axios.get(`/place?input=${location}`)
-      props.handleAddPlace(location)
       let data = res.data
-      console.log('form result here:')
-      console.log(res.data)
-      props.handleAddMarker(data);
+      props.handleAddPlace({name: location, coordinates: data})
+
+      // console.log('form result here:')
+      // console.log(res.data)
+      // props.handleAddMarker(data);
       setLocation('');
     } catch (error) {
       console.log(error)

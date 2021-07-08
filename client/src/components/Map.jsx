@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import config from '../../../config.js';
 import Form from '../components/Form.jsx';
 import PlaceList from '../components/PlaceList.jsx';
-import { GoogleMap, useLoadScript, Marker, StandaloneSearchBox } from '@react-google-maps/api';
+import { GoogleMap, useLoadScript, Marker, InfoWindow, StandaloneSearchBox } from '@react-google-maps/api';
 
 const containerStyle = {
   width: '550px',
@@ -19,7 +19,8 @@ function Map(props) {
   // const onPlacesChanged = () => console.log(this.searchBox.getPlaces());
 
   const [locations, setLocations] = useState([]);
-  const [markers, setMarkers] = useState([]);
+  // const [markers, setMarkers] = useState([]);
+  const [selected, setSelected] = useState({});
 
   const {isLoaded, loadError} = useLoadScript({
     googleMapsApiKey: config.token
@@ -30,9 +31,13 @@ function Map(props) {
     setLocations(newPlaces)
   }
 
-  const handleAddMarker = (newMarker) => {
-    let newMarkers = markers.concat(newMarker)
-    setMarkers(newMarkers);
+  // const handleAddMarker = (newMarker) => {
+  //   let newMarkers = markers.concat(newMarker)
+  //   setMarkers(newMarkers);
+  // }
+
+  const onSelect = (item) => {
+    setSelected(item)
   }
 
   const renderMap = () => {
@@ -45,19 +50,31 @@ function Map(props) {
         zoom={12}
       >
 
-      {markers.map((mark, index) => {
+      {locations.map((location, index) => {
         return <Marker
+          key={index}
           icon={"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"}
-          position={mark}
+          position={location.coordinates}
+          onClick={() => onSelect(location)}
         />
       })}
 
+      {selected.coordinates &&
+      (
+        <InfoWindow
+          position={selected.coordinates}
+          clickable={true}
+          onCloseClick={() => setSelected({})}
+        >
+          <p>{selected.name}</p>
+        </InfoWindow>
+      )}
 
       </GoogleMap>
       <br/>
       <Form
         handleAddPlace={handleAddPlace}
-        handleAddMarker={handleAddMarker}
+        // handleAddMarker={handleAddMarker}
       />
       <br/>
       <div>hi??</div>
@@ -74,40 +91,5 @@ function Map(props) {
 
   return isLoaded ? renderMap() : <div>noooo</div>
 }
-
-
-// <StandaloneSearchBox
-//       onLoad={onLoad}
-//       onPlacesChanged={
-//         onPlacesChanged
-//       }
-//     >
-//       <input
-//         type="text"
-//         placeholder="Customized your placeholder"
-//         style={{
-//           boxSizing: `border-box`,
-//           border: `1px solid transparent`,
-//           width: `240px`,
-//           height: `32px`,
-//           padding: `0 12px`,
-//           borderRadius: `3px`,
-//           boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
-//           fontSize: `14px`,
-//           outline: `none`,
-//           textOverflow: `ellipses`,
-//           position: "absolute",
-//           left: "50%",
-//           marginLeft: "-120px"
-//         }}
-//       />
-//     </StandaloneSearchBox>
-
-//   </GoogleMap>
-
-
-//     </useLoadScript>
-//   )
-// }
 
 export default Map;
