@@ -1,10 +1,11 @@
 import React from 'react';
 import config from '../../../config.js';
+import Form from '../components/Form.jsx';
 import { GoogleMap, useLoadScript, Marker, StandaloneSearchBox } from '@react-google-maps/api';
 
 const containerStyle = {
-  width: '650px',
-  height: '650px'
+  width: '550px',
+  height: '550px'
 };
 
 const center = [{
@@ -23,32 +24,33 @@ function Map(props) {
 
   const renderMap = () => {
 
-    return   <GoogleMap
-    mapContainerStyle={containerStyle}
-    center={props.center}
-    zoom={12}
-    ></GoogleMap>
+    return (
+      <>
+      <GoogleMap
+        mapContainerStyle={containerStyle}
+        center={props.center}
+        zoom={12}
+      >
+
+      <Marker
+       icon={"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"}
+        position={center[0]}
+      />
+
+      </GoogleMap>
+      <br/>
+      <Form/>
+      </>
+    )
   }
 
   if (loadError) {
     return <div>Error loading Map</div>
   }
+
   return isLoaded ? renderMap() : <div>noooo</div>
 }
 
-//   return (
-//     <useLoadScript
-//       googleMapsApiKey={config.token}
-//     >
-//   <GoogleMap
-//     mapContainerStyle={containerStyle}
-//     center={props.center}
-//     zoom={12}
-//   >
-
-
-//   <Marker
-//     position={center[0]}/>
 
 // <StandaloneSearchBox
 //       onLoad={onLoad}

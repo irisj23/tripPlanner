@@ -1,31 +1,24 @@
 import React, { useState } from 'react';
 
+function Form() {
+  const [location, setLocation] = useState('');
 
-function Form(props) {
-
-  const [destination, setDestination] = useState('');
-
-  const handleSubmitDest = (event) => {
+  const handleSubmitLocation = (event) => {
     event.preventDefault();
-
-    props.getDestination(destination);
-    console.log(destination)
-    setDestination('');
+    console.log('place added!')
+    console.log(location)
+    setLocation('');
   }
 
-
-
   return (
-   <>
-   <form onSubmit={handleSubmitDest}>
-     <label>ENTER DESTINATION:</label>
-      <input name="destination" value={destination} placeholder="" onChange={(e) => setDestination(e.target.value)}/>
-      <button type="submit">enter</button>
-   </form>
-
-   </>
-
-  );
+    <>
+      <form onSubmit={handleSubmitLocation}>
+        <label>ENTER LOCATION:</label>
+        <input name="destination" value={location} placeholder="" onChange={(e) => setLocation(e.target.value)}/>
+        <button type="submit">enter</button>
+      </form>
+    </>
+  )
 }
 
 export default Form;
