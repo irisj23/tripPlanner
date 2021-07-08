@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 
-function Form() {
+function Form(props) {
   const [location, setLocation] = useState('');
 
   const handleSubmitLocation = (event) => {
     event.preventDefault();
     console.log('place added!')
     console.log(location)
+    props.handleAddPlace(location)
     setLocation('');
   }
 

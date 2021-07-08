@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import config from '../../../config.js';
 import Form from '../components/Form.jsx';
+import PlaceList from '../components/PlaceList.jsx';
 import { GoogleMap, useLoadScript, Marker, StandaloneSearchBox } from '@react-google-maps/api';
 
 const containerStyle = {
@@ -14,13 +15,23 @@ const center = [{
 }];
 
 function Map(props) {
-  const onLoad = ref => this.searchBox = ref;
-
+  // const onLoad = ref => this.searchBox = ref;
   // const onPlacesChanged = () => console.log(this.searchBox.getPlaces());
+
+  const [locations, setLocations] = useState([]);
 
   const {isLoaded, loadError} = useLoadScript({
     googleMapsApiKey: config.token
   })
+
+  const handleAddPlace = (newPlace) => {
+    console.log('NEW PLACE HERE')
+    console.log(newPlace)
+    let newPlaces = locations.concat(newPlace);
+    setLocations(newPlaces)
+    console.log('LOCATIONS HERE')
+    console.log(locations)
+  }
 
   const renderMap = () => {
 
@@ -39,7 +50,14 @@ function Map(props) {
 
       </GoogleMap>
       <br/>
-      <Form/>
+      <Form
+        handleAddPlace={handleAddPlace}
+      />
+      <br/>
+      <div>hi??</div>
+      <PlaceList
+        locations={locations}
+      />
       </>
     )
   }
