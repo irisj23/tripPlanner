@@ -45,13 +45,15 @@ function Map(props) {
 
   // }
   console.log('props')
-console.log(props.locations)
+  console.log(props.locations)
+
   const getDirections = () => {
     if (props.locations.length > 1) {
       const waypoints = props.locations.map(p =>({
         location: {lat: p.lat, lng: p.lng},
         stopover: true
-    }))
+    }));
+
     const origin = waypoints.shift().location;
     const destination = waypoints.pop().location;
 
@@ -69,11 +71,10 @@ console.log(props.locations)
           console.log(response)
         }
       }
-    );
-    } else {
-      return;
-    }
-
+    )
+  } else {
+    return;
+  }
 }
 
 
