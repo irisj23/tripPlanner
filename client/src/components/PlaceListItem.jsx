@@ -6,7 +6,7 @@ function PlaceListItem(props) {
   console.log(props.place)
   return (
     <>
-     <ul>{props.place.name}</ul>
+     <ul>{props.place}</ul>
     </>
   )
 }

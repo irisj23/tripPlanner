@@ -19,7 +19,6 @@ function Map(props) {
   // const onPlacesChanged = () => console.log(this.searchBox.getPlaces());
 
   const [locations, setLocations] = useState([]);
-  // const [markers, setMarkers] = useState([]);
   const [selected, setSelected] = useState({});
 
   const {isLoaded, loadError} = useLoadScript({
@@ -31,10 +30,6 @@ function Map(props) {
     setLocations(newPlaces)
   }
 
-  // const handleAddMarker = (newMarker) => {
-  //   let newMarkers = markers.concat(newMarker)
-  //   setMarkers(newMarkers);
-  // }
 
   const onSelect = (item) => {
     setSelected(item)
@@ -74,7 +69,6 @@ function Map(props) {
       <br/>
       <Form
         handleAddPlace={handleAddPlace}
-        // handleAddMarker={handleAddMarker}
       />
       <br/>
       <div>hi??</div>
