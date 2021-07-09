@@ -18,6 +18,7 @@ const getLongLatByPlace = async (place) => {
 
     // console.log('placeDetail')
     // console.log(placeDetail.data.result.geometry.location)
+    // {address: longAddress, coordinates: longLat, link: url}
     const longLat = placeDetail.data.result.geometry.location
 
     return longLat;
