@@ -23,7 +23,6 @@ function Map(props) {
   })
 
   const [selected, setSelected] = useState({});
-  // const [routes, setRoutes] = useState(false);
 
   console.log('props')
   console.log(props.locations)
@@ -58,7 +57,10 @@ function Map(props) {
             clickable={true}
             onCloseClick={() => setSelected({})}
           >
+            <>
             <p>{selected.name}</p>
+            <div>hiiiii</div>
+            </>
           </InfoWindow>
         )}
 
@@ -73,7 +75,6 @@ function Map(props) {
 
         <Form
           handleAddPlace={props.handleAddPlace}
-          handleTravelMode={props.handleTravelMode}
         />
         <br/>
 

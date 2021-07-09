@@ -25,8 +25,6 @@ function PlaceList(props) {
       })}
       </ul>
 
-
-
       <label>Select Transit:</label>
       <select onChange={handleTransit}>
         <option value="DRIVING">Driving</option>

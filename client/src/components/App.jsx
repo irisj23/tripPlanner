@@ -117,12 +117,13 @@ function App() {
             origin={origin}
             destination={destination}
             directions={directions}
-            handleTravelMode={handleTravelMode}
+            travelMode={travelMode}
             routes={routes}
           />
           <PlaceList
             locations={locations}
             handleBuildRoute={handleBuildRoute}
+            handleTravelMode={handleTravelMode}
           />
         </>
       );
