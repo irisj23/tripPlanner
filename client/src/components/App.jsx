@@ -7,7 +7,6 @@ import PlaceList from '../components//placeList/PlaceList.jsx';
 import config from '../../../config.js';
 import styled from 'styled-components';
 // import Days from '../components/Days.jsx';
-// import Search from '../components/Search.jsx';
 
 const Wrapper = styled.div`
   display: flex;
@@ -17,6 +16,13 @@ const Wrapper = styled.div`
   width: 1500px;
   margin-top: 100px;
 
+`
+
+const LandingPageContainer = styled.div`
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 1500px;
+  margin-top: 100px;
 `
 
 const MapContainer = styled.div`
@@ -133,14 +139,16 @@ function App() {
 
 
   const renderPage = () => {
-    // if (!clicked) {
-    //   return (
-    //     <LandingPage
-    //       getCenterDestination={getCenterDestination}
-    //       handleDays={handleDays}
-    //     />
-    //   );
-    // } else {
+    if (!clicked) {
+      return (
+        <LandingPageContainer>
+          <LandingPage
+            getCenterDestination={getCenterDestination}
+            handleDays={handleDays}
+          />
+        </LandingPageContainer>
+      );
+    } else {
         return (
         <Wrapper>
           <MapContainer>
@@ -171,7 +179,7 @@ function App() {
           </PlacesContainer>
         </Wrapper>
       );
-    // }
+    }
   };
 
   return (
