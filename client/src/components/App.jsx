@@ -107,14 +107,14 @@ function App() {
 
 
   const renderPage = () => {
-    if (!clicked) {
-      return (
-        <LandingPage
-          getCenterDestination={getCenterDestination}
-          handleDays={handleDays}
-        />
-      );
-    } else {
+    // if (!clicked) {
+    //   return (
+    //     <LandingPage
+    //       getCenterDestination={getCenterDestination}
+    //       handleDays={handleDays}
+    //     />
+    //   );
+    // } else {
         return (
         <>
           <Map
@@ -142,7 +142,7 @@ function App() {
           />
         </>
       );
-    }
+    // }
   };
 
   return (

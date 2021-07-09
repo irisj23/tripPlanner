@@ -4,7 +4,7 @@ import config from '../../../../config.js';
 import axios from 'axios';
 import Form from './Form.jsx';
 import WindowItem from './WindowItem.jsx';
-
+import styled from 'styled-components';
 import { GoogleMap, useLoadScript, Marker, InfoWindow, DirectionsRenderer, StandaloneSearchBox } from '@react-google-maps/api';
 
 const containerStyle = {
@@ -16,6 +16,21 @@ const centerSample = [{
   lat: 37.773972,
   lng: -122.431297
 }];
+
+
+const MapWrapper = styled.div`
+  display: flex;
+`
+
+const MapContainer = styled.div`
+  order: 1;
+  flex-basis: 70;
+`
+
+const FormContainer = styled.div`
+  order: 2;
+  flex-basis: 30;
+`
 
 function Map(props) {
 
@@ -35,53 +50,57 @@ function Map(props) {
   const renderMap = () => {
 
     return (
-      <>
-        <GoogleMap
-          mapContainerStyle={containerStyle}
-          center={props.center}
-          zoom={12}
-        >
-
-        {!props.routes && props.locations.length > 0 && props.locations.map((location, index) => {
-          return <Marker
-            key={index}
-            icon={"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"}
-            position={location.coordinates}
-            onClick={() => onSelect(location)}
-          />
-        })}
-
-        {selected.coordinates &&
-        (
-          <InfoWindow
-            position={selected.coordinates}
-            clickable={true}
-            onCloseClick={() => setSelected({})}
+      <MapWrapper>
+        <MapContainer>
+          <GoogleMap
+            mapContainerStyle={containerStyle}
+            center={centerSample}
+            // center={props.center}
+            zoom={12}
           >
-            <>
-            <WindowItem
-            name={selected.name}
+
+          {!props.routes && props.locations.length > 0 && props.locations.map((location, index) => {
+            return <Marker
+              key={index}
+              icon={"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"}
+              position={location.coordinates}
+              onClick={() => onSelect(location)}
             />
-            <div>hiiiii</div>
-            </>
-          </InfoWindow>
-        )}
+          })}
 
-        {props.routes && props.directions && (
-          <DirectionsRenderer
-            directions={props.directions}
+          {selected.coordinates &&
+          (
+            <InfoWindow
+              position={selected.coordinates}
+              clickable={true}
+              onCloseClick={() => setSelected({})}
+            >
+              <>
+              <WindowItem
+              name={selected.name}
+              />
+              <div>hiiiii</div>
+              </>
+            </InfoWindow>
+          )}
+
+          {props.routes && props.directions && (
+            <DirectionsRenderer
+              directions={props.directions}
+            />
+          )}
+
+          </GoogleMap>
+        </MapContainer>
+
+        <FormContainer>
+          <Form
+            handleAddPlace={props.handleAddPlace}
           />
-        )}
+          <br/>
+        </FormContainer>
 
-        </GoogleMap>
-        <br/>
-
-        <Form
-          handleAddPlace={props.handleAddPlace}
-        />
-        <br/>
-
-      </>
+      </MapWrapper>
     )
   }
 
