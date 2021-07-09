@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import PlaceListItem from '../components/PlaceListItem.jsx';
+import PlaceListItem from './PlaceListItem.jsx';
 
 function PlaceList(props) {
 

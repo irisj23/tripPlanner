@@ -1,6 +1,8 @@
 /*global google */
 import React, { useState, useEffect, useRef } from "react";
-import config from '../../../config.js';
+import styled from 'styled-components';
+import SearchStyle from '../sharedStyles/SearchStyle.jsx';
+import config from '../../../../config.js';
 
 let autoComplete;
 
@@ -62,17 +64,16 @@ function SearchBox(props) {
 
 
   return (
-    <div className="search-location-input">
+    <SearchStyle.SearchContainer>
       <form onSubmit={handleSubmitDest}>
-      <input
-        ref={autoCompleteRef}
-        onChange={(e) => setQuery(e.target.value)}
-        placeholder="Enter a City"
-        value={query}
-      />
-      <button type="submit">enter</button>
+        <SearchStyle.Search
+          ref={autoCompleteRef}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Where are we going?"
+          value={query}
+        />
       </form>
-    </div>
+    </SearchStyle.SearchContainer>
   );
 }
 

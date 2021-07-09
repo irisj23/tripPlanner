@@ -1,9 +1,9 @@
 /*global google */
 import React, { useState, useEffect } from 'react';
-import config from '../../../config.js';
+import config from '../../../../config.js';
 import axios from 'axios';
-import Form from '../components/Form.jsx';
-import WindowItem from '../components/WindowItem.jsx';
+import Form from './Form.jsx';
+import WindowItem from './WindowItem.jsx';
 
 import { GoogleMap, useLoadScript, Marker, InfoWindow, DirectionsRenderer, StandaloneSearchBox } from '@react-google-maps/api';
 

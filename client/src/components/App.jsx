@@ -1,12 +1,12 @@
 /*global google */
 import React, { useState, useEffect, useRef } from "react";
 import axios from 'axios';
-import Map from '../components/Map.jsx';
-import LandingPage from '../components/LandingPage.jsx';
+import Map from '../components/map/Map.jsx';
+import LandingPage from '../components/landingPage/LandingPage.jsx';
 // import SearchBox from '../components/SearchBox.jsx';
-import PlaceList from '../components/PlaceList.jsx';
+import PlaceList from '../components//placeList/PlaceList.jsx';
 import config from '../../../config.js';
-import Days from '../components/Days.jsx';
+// import Days from '../components/Days.jsx';
 // import Search from '../components/Search.jsx';
 
 
@@ -127,19 +127,19 @@ function App() {
             travelMode={travelMode}
             routes={routes}
           />
-          <Days
+          {/* <Days
             number={days}
             locations={locations}
             handleBuildRoute={handleBuildRoute}
             handleTravelMode={handleTravelMode}
-          />
+          /> */}
 
-          {/* <PlaceList
+          <PlaceList
             locations={locations}
             handleBuildRoute={handleBuildRoute}
             handleTravelMode={handleTravelMode}
             days={days}
-          /> */}
+          />
         </>
       );
     }
@@ -147,7 +147,6 @@ function App() {
 
   return (
     <>
-      hi
       {renderPage()}
     </>
   );
