@@ -41,7 +41,7 @@ async function handlePlaceSelect(updateQuery) {
   console.log(addressObject);
 }
 
-function SearchBox() {
+function SearchBox(props) {
   const [query, setQuery] = useState("");
   const autoCompleteRef = useRef(null);
 
@@ -52,14 +52,26 @@ function SearchBox() {
     );
   }, []);
 
+  const handleSubmitDest = (event) => {
+    event.preventDefault();
+
+    props.getCenterDestination(query);
+    console.log(query)
+    setQuery('');
+  }
+
+
   return (
     <div className="search-location-input">
+      <form onSubmit={handleSubmitDest}>
       <input
         ref={autoCompleteRef}
-        onChange={event => setQuery(event.target.value)}
+        onChange={(e) => setQuery(e.target.value)}
         placeholder="Enter a City"
         value={query}
       />
+      <button type="submit">enter</button>
+      </form>
     </div>
   );
 }

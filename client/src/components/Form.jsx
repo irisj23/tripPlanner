@@ -40,20 +40,6 @@ function Form(props) {
         <option value="WALKING">WALKING</option>
       </select>
       <button onClick={handleSubmitLocation}>ENTER</button>
-
-
-
-
-
-
-
-{/*
-      <form onSubmit={handleSubmitLocation}>
-        <label>ENTER LOCATION:</label>
-        <input name="destination" value={location} placeholder="" onChange={(e) => setLocation(e.target.value)}/>
-        <input name="travelMode" type="radio">Driving</input>
-        <button type="submit">enter</button>
-      </form> */}
     </>
   )
 }

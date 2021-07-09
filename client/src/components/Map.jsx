@@ -23,28 +23,15 @@ function Map(props) {
   })
 
   const [selected, setSelected] = useState({});
-  // const [travelMode, setTravelMode] = useState('DRIVING');
-  // const [directions, setDirections] = useState(null);
 
   console.log('props')
   console.log(props.locations)
-
-// if (props.locations.length > 1) {
-//   getDirections();
-// }
-
-
-  // const handleTravelMode = (type) => {
-  //   setTravelMode(type);
-  // }
-
 
   const onSelect = (item) => {
     setSelected(item);
   }
 
   const renderMap = () => {
-    // console.log("render map with props.directions=" + props.directions);
 
     return (
       <>

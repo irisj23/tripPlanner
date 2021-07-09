@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 import axios from 'axios';
 import Map from '../components/Map.jsx';
 import LandingPage from '../components/LandingPage.jsx';
-import SearchBox from '../components/SearchBox.jsx';
+// import SearchBox from '../components/SearchBox.jsx';
 import PlaceList from '../components/PlaceList.jsx';
 import config from '../../../config.js';
 // import Search from '../components/Search.jsx';
@@ -117,9 +117,6 @@ function App() {
           <PlaceList
             locations={locations}
           />
-
-         <SearchBox/>
-
         </>
       );
     }
