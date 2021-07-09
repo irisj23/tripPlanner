@@ -3,12 +3,38 @@ import React, { useState, useEffect, useRef } from "react";
 import axios from 'axios';
 import Map from '../components/map/Map.jsx';
 import LandingPage from '../components/landingPage/LandingPage.jsx';
-// import SearchBox from '../components/SearchBox.jsx';
 import PlaceList from '../components//placeList/PlaceList.jsx';
 import config from '../../../config.js';
+import styled from 'styled-components';
 // import Days from '../components/Days.jsx';
 // import Search from '../components/Search.jsx';
 
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 1500px;
+  margin-top: 100px;
+
+`
+
+const MapContainer = styled.div`
+  order: 1;
+  flex-basis: 70;
+  padding: 20px;
+`
+
+// const Logo = styled.img`
+//   src: ${logo};
+// `
+
+const PlacesContainer = styled.div`
+  order: 2;
+  flex-basis: 30;
+  padding: 20px;
+  overflow-y: scroll;
+`
 
 function App() {
 
@@ -116,31 +142,34 @@ function App() {
     //   );
     // } else {
         return (
-        <>
-          <Map
-            center={center}
-            locations={locations}
-            origin={origin}
-            destination={destination}
-            directions={directions}
-            travelMode={travelMode}
-            routes={routes}
-          />
+        <Wrapper>
+          <MapContainer>
+            <Map
+              center={center}
+              locations={locations}
+              origin={origin}
+              destination={destination}
+              directions={directions}
+              travelMode={travelMode}
+              routes={routes}
+            />
+          </MapContainer>
           {/* <Days
             number={days}
             locations={locations}
             handleBuildRoute={handleBuildRoute}
             handleTravelMode={handleTravelMode}
           /> */}
-
-          <PlaceList
-            locations={locations}
-            handleBuildRoute={handleBuildRoute}
-            handleTravelMode={handleTravelMode}
-            handleAddPlace={handleAddPlace}
-            days={days}
-          />
-        </>
+          <PlacesContainer>
+            <PlaceList
+              locations={locations}
+              handleBuildRoute={handleBuildRoute}
+              handleTravelMode={handleTravelMode}
+              handleAddPlace={handleAddPlace}
+              days={days}
+            />
+          </PlacesContainer>
+        </Wrapper>
       );
     // }
   };

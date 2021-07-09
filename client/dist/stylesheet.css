@@ -1,0 +1,10 @@
+body {
+  user-select: none;
+  letter-spacing: .05rem;
+  font-family: Roboto, Arial, Helvetica, sans-serif;
+  margin: 0px;
+}
+
+html {
+  scroll-behavior: smooth;
+}

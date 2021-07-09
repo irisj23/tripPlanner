@@ -22,7 +22,9 @@ function Form(props) {
   return (
     <>
       <label>LOCATION:</label>
+
       <input name="destination" value={location} placeholder="" onChange={(e) => setLocation(e.target.value)}/>
+
       <button onClick={handleSubmitLocation}>ENTER</button>
 
     </>

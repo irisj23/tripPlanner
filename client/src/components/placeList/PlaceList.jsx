@@ -3,10 +3,32 @@ import PlaceListItem from './PlaceListItem.jsx';
 import Form from './Form.jsx';
 import styled from 'styled-components';
 
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 400px;
+  margin-top: 100px;
+
+`
+
 const FormContainer = styled.div`
+  order: 1;
+  flex-basis: 70;
+  padding: 20px;
+`
+
+const PlaceListContainer = styled.div`
   order: 2;
   flex-basis: 30;
 `
+const RouteContainer = styled.div`
+  order: 3;
+  flex-basis: 30;
+`
+
 
 
 function PlaceList(props) {
@@ -24,9 +46,14 @@ function PlaceList(props) {
 
   return(
     <>
+    <Wrapper>
+      <FormContainer>
       <Form
         handleAddPlace={props.handleAddPlace}
       />
+      </FormContainer>
+
+      <PlaceListContainer>
       <ul>
       {props.locations.length > 0 && props.locations.map((location, index) => {
         return <PlaceListItem
@@ -35,16 +62,21 @@ function PlaceList(props) {
         />
       })}
       </ul>
+      </PlaceListContainer>
 
+<RouteContainer>
       <label>Select Transit:</label>
+
       <select onChange={handleTransit}>
         <option value="DRIVING">Driving</option>
         <option value="BICYCLING">BICYCLING</option>
         <option value="TRANSIT">TRANSIT</option>
         <option value="WALKING">WALKING</option>
       </select>
-      <button onClick={handleBuildRouteClick}>BUILD ROUTE</button>
 
+      <button onClick={handleBuildRouteClick}>BUILD ROUTE</button>
+      </RouteContainer>
+      </Wrapper>
     </>
   )
 
