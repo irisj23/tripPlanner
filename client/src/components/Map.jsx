@@ -23,6 +23,7 @@ function Map(props) {
   })
 
   const [selected, setSelected] = useState({});
+  // const [routes, setRoutes] = useState(false);
 
   console.log('props')
   console.log(props.locations)
@@ -41,7 +42,7 @@ function Map(props) {
           zoom={12}
         >
 
-        {props.locations.length > 0 && props.locations.map((location, index) => {
+        {!props.routes && props.locations.length > 0 && props.locations.map((location, index) => {
           return <Marker
             key={index}
             icon={"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"}
@@ -61,7 +62,7 @@ function Map(props) {
           </InfoWindow>
         )}
 
-        {props.directions && (
+        {props.routes && props.directions && (
           <DirectionsRenderer
             directions={props.directions}
           />

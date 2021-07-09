@@ -20,6 +20,7 @@ function App() {
   const [isError, setIsError] = useState(false);
   const [travelMode, setTravelMode] = useState('DRIVING');
   const [loadMap, setLoadMap] = useState(false);
+  const [routes, setRoutes] = useState(false);
 
 
   // useEffect(() => {
@@ -94,6 +95,10 @@ function App() {
     setTravelMode(type);
   }
 
+  const handleBuildRoute = () => {
+    setRoutes(true);
+  }
+
 
   const renderPage = () => {
     if (!clicked) {
@@ -113,9 +118,11 @@ function App() {
             destination={destination}
             directions={directions}
             handleTravelMode={handleTravelMode}
+            routes={routes}
           />
           <PlaceList
             locations={locations}
+            handleBuildRoute={handleBuildRoute}
           />
         </>
       );
