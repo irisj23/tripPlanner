@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import config from '../../../../config.js';
 import axios from 'axios';
-import Form from './Form.jsx';
+// import Form from './Form.jsx';
 import WindowItem from './WindowItem.jsx';
 import styled from 'styled-components';
 import { GoogleMap, useLoadScript, Marker, InfoWindow, DirectionsRenderer, StandaloneSearchBox } from '@react-google-maps/api';
@@ -25,11 +25,6 @@ const MapWrapper = styled.div`
 const MapContainer = styled.div`
   order: 1;
   flex-basis: 70;
-`
-
-const FormContainer = styled.div`
-  order: 2;
-  flex-basis: 30;
 `
 
 function Map(props) {
@@ -92,14 +87,6 @@ function Map(props) {
 
           </GoogleMap>
         </MapContainer>
-
-        <FormContainer>
-          <Form
-            handleAddPlace={props.handleAddPlace}
-          />
-          <br/>
-        </FormContainer>
-
       </MapWrapper>
     )
   }

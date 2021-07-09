@@ -120,7 +120,6 @@ function App() {
           <Map
             center={center}
             locations={locations}
-            handleAddPlace={handleAddPlace}
             origin={origin}
             destination={destination}
             directions={directions}
@@ -138,6 +137,7 @@ function App() {
             locations={locations}
             handleBuildRoute={handleBuildRoute}
             handleTravelMode={handleTravelMode}
+            handleAddPlace={handleAddPlace}
             days={days}
           />
         </>

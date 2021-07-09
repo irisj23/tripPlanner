@@ -1,5 +1,13 @@
 import React, { useState } from 'react';
 import PlaceListItem from './PlaceListItem.jsx';
+import Form from './Form.jsx';
+import styled from 'styled-components';
+
+const FormContainer = styled.div`
+  order: 2;
+  flex-basis: 30;
+`
+
 
 function PlaceList(props) {
 
@@ -16,6 +24,9 @@ function PlaceList(props) {
 
   return(
     <>
+      <Form
+        handleAddPlace={props.handleAddPlace}
+      />
       <ul>
       {props.locations.length > 0 && props.locations.map((location, index) => {
         return <PlaceListItem
