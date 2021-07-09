@@ -1,11 +1,13 @@
 /*global google */
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from "react";
 import axios from 'axios';
 import Map from '../components/Map.jsx';
 import LandingPage from '../components/LandingPage.jsx';
 import SearchBox from '../components/SearchBox.jsx';
 import PlaceList from '../components/PlaceList.jsx';
+import config from '../../../config.js';
 // import Search from '../components/Search.jsx';
+
 
 function App() {
 
@@ -17,6 +19,12 @@ function App() {
   const [destination, setDestination] = useState('');
   const [isError, setIsError] = useState(false);
   const [travelMode, setTravelMode] = useState('DRIVING');
+  const [loadMap, setLoadMap] = useState(false);
+
+
+  // useEffect(() => {
+
+  // }, []);
 
 
   const getCenterDestination = async (destination) => {
@@ -107,8 +115,11 @@ function App() {
             handleTravelMode={handleTravelMode}
           />
           <PlaceList
-          locations={locations}
+            locations={locations}
           />
+
+         <SearchBox/>
+
         </>
       );
     }

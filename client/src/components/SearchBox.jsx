@@ -1,40 +1,67 @@
-import React from 'react';
-import { StandaloneSearchBox } from '@react-google-maps/api';
+/*global google */
+import React, { useState, useEffect, useRef } from "react";
+import config from '../../../config.js';
+
+let autoComplete;
+
+const loadScript = (url, callback) => {
+  let script = document.createElement("script");
+  script.type = "text/javascript";
+
+  if (script.readyState) {
+    script.onreadystatechange = function() {
+      if (script.readyState === "loaded" || script.readyState === "complete") {
+        script.onreadystatechange = null;
+        callback();
+      }
+    };
+  } else {
+    script.onload = () => callback();
+  }
+
+  script.src = url;
+  document.getElementsByTagName("head")[0].appendChild(script);
+};
+
+function handleScriptLoad(updateQuery, autoCompleteRef) {
+  autoComplete = new window.google.maps.places.Autocomplete(
+    autoCompleteRef.current,
+    {componentRestrictions: { country: "us" } }
+  );
+  autoComplete.setFields(["address_components", "formatted_address"]);
+  autoComplete.addListener("place_changed", () =>
+    handlePlaceSelect(updateQuery)
+  );
+}
+
+async function handlePlaceSelect(updateQuery) {
+  const addressObject = autoComplete.getPlace();
+  const query = addressObject.formatted_address;
+  updateQuery(query);
+  console.log(addressObject);
+}
 
 function SearchBox() {
-  // const onLoad = ref => this.searchBox = ref;
+  const [query, setQuery] = useState("");
+  const autoCompleteRef = useRef(null);
 
-  // const onPlacesChanged = () => console.log(this.searchBox.getPlaces());
+  useEffect(() => {
+    loadScript(
+      `https://maps.googleapis.com/maps/api/js?key=${config.token}&libraries=places`,
+      () => handleScriptLoad(setQuery, autoCompleteRef)
+    );
+  }, []);
 
   return (
-    <StandaloneSearchBox
-      // onLoad={onLoad}
-      // onPlacesChanged={
-      //   onPlacesChanged
-      // }
-    >
+    <div className="search-location-input">
       <input
-        type="text"
-        placeholder="Customized your placeholder"
-        style={{
-          boxSizing: `border-box`,
-          border: `1px solid transparent`,
-          width: `240px`,
-          height: `32px`,
-          padding: `0 12px`,
-          borderRadius: `3px`,
-          boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
-          fontSize: `14px`,
-          outline: `none`,
-          textOverflow: `ellipses`,
-          position: "absolute",
-          left: "50%",
-          marginLeft: "-120px"
-        }}
+        ref={autoCompleteRef}
+        onChange={event => setQuery(event.target.value)}
+        placeholder="Enter a City"
+        value={query}
       />
-    </StandaloneSearchBox>
-
-  )
+    </div>
+  );
 }
 
 export default SearchBox;
