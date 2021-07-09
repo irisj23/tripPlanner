@@ -6,6 +6,7 @@ import LandingPage from '../components/LandingPage.jsx';
 // import SearchBox from '../components/SearchBox.jsx';
 import PlaceList from '../components/PlaceList.jsx';
 import config from '../../../config.js';
+import Days from '../components/Days.jsx';
 // import Search from '../components/Search.jsx';
 
 
@@ -21,6 +22,7 @@ function App() {
   const [travelMode, setTravelMode] = useState('DRIVING');
   const [loadMap, setLoadMap] = useState(false);
   const [routes, setRoutes] = useState(false);
+  const [days, setDays] = useState([]);
 
 
   // useEffect(() => {
@@ -99,12 +101,17 @@ function App() {
     setRoutes(true);
   }
 
+  const handleDays = (numberOfDays) => {
+    setDays(numberOfDays);
+  }
+
 
   const renderPage = () => {
     if (!clicked) {
       return (
         <LandingPage
           getCenterDestination={getCenterDestination}
+          handleDays={handleDays}
         />
       );
     } else {
@@ -120,11 +127,19 @@ function App() {
             travelMode={travelMode}
             routes={routes}
           />
-          <PlaceList
+          <Days
+            number={days}
             locations={locations}
             handleBuildRoute={handleBuildRoute}
             handleTravelMode={handleTravelMode}
           />
+
+          {/* <PlaceList
+            locations={locations}
+            handleBuildRoute={handleBuildRoute}
+            handleTravelMode={handleTravelMode}
+            days={days}
+          /> */}
         </>
       );
     }
