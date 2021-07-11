@@ -25,7 +25,7 @@ app.get('/place', async (req, res) => {
     console.log('get place error here:')
     console.log(error)
   }
-})
+});
 
 app.get('/directions', async (req, res) => {
   let origin = req.query.origin;
@@ -38,6 +38,19 @@ app.get('/directions', async (req, res) => {
     res.status(200).send(result)
   } catch(error) {
     console.log('get directions error here:')
+    console.log(error)
+  }
+});
+
+app.get('/photo', async (req, res) => {
+  let photoRef = req.query.photoRef;
+
+  try {
+    const result = await helper.getPhoto(photoRef);
+    res.contentType('image/jpeg');
+    res.status(200).end(result, 'binary');
+  } catch(error) {
+    console.log('get photo error here:')
     console.log(error)
   }
 })

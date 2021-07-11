@@ -19,17 +19,17 @@ const getLongLatByPlace = async (place) => {
     // console.log('placeDetail')
     // console.log(placeDetail.data.result.geometry.location)
     // {address: longAddress, coordinates: longLat, link: url}
-    const longLat = placeDetail.data.result.geometry.location
+    const longLat = placeDetail.data.result.geometry.location;
+    const photoRef = placeDetail.data.result.photos[0].photo_reference;
+    const name = placeDetail.data.result.name;
 
-    return longLat;
+    return {name: name, coordinates: longLat, photoRef: photoRef};
 
   } catch(error) {
     console.log('helper get place error here:')
     console.log(error)
   }
-
-
-}
+};
 
 const getDirections = async (source, destination) => {
 
@@ -46,7 +46,25 @@ const getDirections = async (source, destination) => {
     console.log('helper get directions error here:')
     console.log(error)
   }
+};
+
+
+const getPhoto = async (photoRef) => {
+
+  const url = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=1024&photoreference=${photoRef}&key=${config.token}`;
+  console.log(url);
+  try {
+    const res = await axios.get(url, {
+      responseType: 'arraybuffer'
+    });
+    const binaryData = Buffer.from(res.data, 'binary');
+    return binaryData;
+  } catch(error) {
+    console.log('helper get photo error here:')
+    console.log(error)
+  }
 }
 
 module.exports.getLongLatByPlace = getLongLatByPlace;
 module.exports.getDirections = getDirections;
+module.exports.getPhoto = getPhoto;
