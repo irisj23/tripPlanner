@@ -170,22 +170,19 @@ function App() {
         </LandingPageContainer>
       );
     } else {
-      let url = `/photo?photoRef=${photoRef}`;
         return (
-        // <Wrapper>
-        <>
-          {/* <img src={url}></img> */}
-          <div class="columns">
-            <div class="column is-one-thirds">
+          <div className="fullHeight columns">
+            <div class="fullHeight column is-one-thirds">
               <PlaceList
                 locations={locations}
                 handleBuildRoute={handleBuildRoute}
                 handleTravelMode={handleTravelMode}
                 handleAddPlace={handleAddPlace}
                 days={days}
-            />
-            </div>
-            <div class="column is-two-thirds">
+              />
+          </div>
+
+            <div class="fullHeight column is-two-thirds test3">
               <Map
                 center={center}
                 locations={locations}
@@ -195,40 +192,9 @@ function App() {
                 travelMode={travelMode}
                 routes={routes}
                 handleRemoveMarker={handleRemoveMarker}
-            />
+              />
             </div>
           </div>
-
-
-          {/* <MapContainer>
-            <Map
-              center={center}
-              locations={locations}
-              origin={origin}
-              destination={destination}
-              directions={directions}
-              travelMode={travelMode}
-              routes={routes}
-              handleRemoveMarker={handleRemoveMarker}
-            />
-          </MapContainer> */}
-          {/* <Days
-            number={days}
-            locations={locations}
-            handleBuildRoute={handleBuildRoute}
-            handleTravelMode={handleTravelMode}
-          /> */}
-          {/* <PlacesContainer>
-            <PlaceList
-              locations={locations}
-              handleBuildRoute={handleBuildRoute}
-              handleTravelMode={handleTravelMode}
-              handleAddPlace={handleAddPlace}
-              days={days}
-            />
-          </PlacesContainer> */}
-        {/* </Wrapper> */}
-        </>
       );
     }
   };

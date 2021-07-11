@@ -8,8 +8,10 @@ import styled from 'styled-components';
 import { GoogleMap, useLoadScript, Marker, InfoWindow, DirectionsRenderer } from '@react-google-maps/api';
 
 const containerStyle = {
-  width: '50%',
-  height: '50%'
+  width: '100%',
+  height: '100%',
+  margin: 0,
+  padding: 0,
 };
 
 const centerSample = [{
@@ -25,6 +27,17 @@ const MapWrapper = styled.div`
 const MapContainer = styled.div`
   order: 1;
   flex-basis: 70;
+  margin: 0;
+  padding: 0
+`
+
+const Background = styled.div`
+  background-color: blue;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 `
 
 function Map(props) {
@@ -56,10 +69,68 @@ function Map(props) {
   }
 
 
-
-
-
   const renderMap = () => {
+
+    return (
+
+    <Background>
+      <GoogleMap
+        mapContainerStyle={containerStyle}
+        // center={centerSample}
+        center={props.center}
+        zoom={12}
+      >
+
+      {!props.routes && props.locations.length > 0 && props.locations.map((location, index) => {
+          return <Marker
+            key={index}
+            icon={"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"}
+            position={location.coordinates}
+            onClick={() => onSelect(location)}
+            animation='BOUNCE'
+          />
+        })}
+
+        {selected.coordinates &&
+        (
+          <InfoWindow
+            position={selected.coordinates}
+            clickable={true}
+            onCloseClick={() => setSelected({})}
+          >
+            <>
+            <WindowItem
+              name={selected.name}
+              handleRemoveMarker={props.handleRemoveMarker}
+              handleRemoveWindow={handleRemoveWindow}
+            />
+            <div>hiiiii</div>
+            </>
+          </InfoWindow>
+        )}
+
+        {props.routes && props.directions && (
+          <DirectionsRenderer
+            directions={props.directions}
+          />
+        )}
+
+      </GoogleMap>
+    </Background>
+    )
+  }
+
+  if (loadError) {
+    return <div>Error loading Map</div>
+  }
+
+  return isLoaded ? renderMap() : <div>noooo</div>
+
+}
+
+export default Map;
+
+  {/* const renderMap = () => {
 
     return (
       <MapWrapper>
@@ -116,6 +187,6 @@ function Map(props) {
   }
 
   return isLoaded ? renderMap() : <div>noooo</div>
-}
+} */}
 
-export default Map;
+
