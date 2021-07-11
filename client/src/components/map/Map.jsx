@@ -40,7 +40,24 @@ function Map(props) {
 
   const onSelect = (item) => {
     setSelected(item);
+  };
+
+  console.log('selected')
+  console.log(selected)
+  const handleRemoveWindow = (location) => {
+    for (let name in selected) {
+      if (selected.name === location) {
+        delete selected.coordinates;
+      };
+      return selected;
+
+    }
+    setSelected(selected);
   }
+
+
+
+
 
   const renderMap = () => {
 
@@ -75,6 +92,7 @@ function Map(props) {
               <WindowItem
               name={selected.name}
               handleRemoveMarker={props.handleRemoveMarker}
+              handleRemoveWindow={handleRemoveWindow}
               />
               <div>hiiiii</div>
               </>
