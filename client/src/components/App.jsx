@@ -44,11 +44,13 @@ const PlacesContainer = styled.div`
 
 const PhotoWrap = styled.img`
   filter: blur(8px);
-  opacity: 0.8;
-  position: absolute;
+  opacity: 0.6;
+  position: fixed;
   width: 100%;
   height: 100%;
   z-index: -1;
+  top: 0;
+  left: 0;
 `
 
 function App() {
