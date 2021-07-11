@@ -42,6 +42,15 @@ const PlacesContainer = styled.div`
   overflow-y: scroll;
 `
 
+const PhotoWrap = styled.img`
+  filter: blur(8px);
+  opacity: 0.8;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+`
+
 function App() {
 
   const [locations, setLocations] = useState([]);
@@ -55,6 +64,7 @@ function App() {
   const [loadMap, setLoadMap] = useState(false);
   const [routes, setRoutes] = useState(false);
   const [days, setDays] = useState([]);
+  const [photoRef, setPhotoRef] = useState(null);
 
 
   // useEffect(() => {
@@ -70,7 +80,8 @@ function App() {
       const res = await axios.get(`/place?input=${destination}`);
       // console.log('app result here:')
       // console.log(res.data)
-      setCenter(res.data)
+      setCenter(res.data.coordinates);
+      setPhotoRef(res.data.photoRef);
       setClicked(true);
 
     } catch (error) {
@@ -158,8 +169,10 @@ function App() {
         </LandingPageContainer>
       );
     } else {
+      let url = `/photo?photoRef=${photoRef}`;
         return (
         <Wrapper>
+          <PhotoWrap src={url}></PhotoWrap>
           <MapContainer>
             <Map
               center={center}
