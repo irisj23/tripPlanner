@@ -8,8 +8,8 @@ import styled from 'styled-components';
 import { GoogleMap, useLoadScript, Marker, InfoWindow, DirectionsRenderer } from '@react-google-maps/api';
 
 const containerStyle = {
-  width: '900px',
-  height: '650px'
+  width: '50%',
+  height: '50%'
 };
 
 const centerSample = [{

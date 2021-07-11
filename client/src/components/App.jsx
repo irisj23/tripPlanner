@@ -28,7 +28,6 @@ const LandingPageContainer = styled.div`
 const MapContainer = styled.div`
   order: 2;
   flex-basis: 70;
-  padding: 20px;
 `
 
 // const Logo = styled.img`
@@ -42,16 +41,16 @@ const PlacesContainer = styled.div`
   overflow-y: scroll;
 `
 
-const PhotoWrap = styled.img`
-  filter: blur(8px);
-  opacity: 0.6;
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  top: 0;
-  left: 0;
-`
+// const PhotoWrap = styled.img`
+//   filter: blur(8px);
+//   opacity: 0.6;
+//   position: fixed;
+//   width: 100%;
+//   height: 100%;
+//   z-index: -1;
+//   top: 0;
+//   left: 0;
+// `
 
 function App() {
 
@@ -94,7 +93,7 @@ function App() {
 
   const handleAddPlace = (newPlace) => {
 
-    let newPlaces = locations.concat(newPlace);
+    let newPlaces = locations.concat(newPlace.coordinates);
     setLocations(newPlaces);
     console.log(newPlaces);
 
@@ -173,9 +172,35 @@ function App() {
     } else {
       let url = `/photo?photoRef=${photoRef}`;
         return (
-        <Wrapper>
-          <PhotoWrap src={url}></PhotoWrap>
-          <MapContainer>
+        // <Wrapper>
+        <>
+          {/* <img src={url}></img> */}
+          <div class="columns">
+            <div class="column is-one-thirds">
+              <PlaceList
+                locations={locations}
+                handleBuildRoute={handleBuildRoute}
+                handleTravelMode={handleTravelMode}
+                handleAddPlace={handleAddPlace}
+                days={days}
+            />
+            </div>
+            <div class="column is-two-thirds">
+              <Map
+                center={center}
+                locations={locations}
+                origin={origin}
+                destination={destination}
+                directions={directions}
+                travelMode={travelMode}
+                routes={routes}
+                handleRemoveMarker={handleRemoveMarker}
+            />
+            </div>
+          </div>
+
+
+          {/* <MapContainer>
             <Map
               center={center}
               locations={locations}
@@ -186,14 +211,14 @@ function App() {
               routes={routes}
               handleRemoveMarker={handleRemoveMarker}
             />
-          </MapContainer>
+          </MapContainer> */}
           {/* <Days
             number={days}
             locations={locations}
             handleBuildRoute={handleBuildRoute}
             handleTravelMode={handleTravelMode}
           /> */}
-          <PlacesContainer>
+          {/* <PlacesContainer>
             <PlaceList
               locations={locations}
               handleBuildRoute={handleBuildRoute}
@@ -201,8 +226,9 @@ function App() {
               handleAddPlace={handleAddPlace}
               days={days}
             />
-          </PlacesContainer>
-        </Wrapper>
+          </PlacesContainer> */}
+        {/* </Wrapper> */}
+        </>
       );
     }
   };
