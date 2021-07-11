@@ -5,7 +5,7 @@ import axios from 'axios';
 // import Form from './Form.jsx';
 import WindowItem from './WindowItem.jsx';
 import styled from 'styled-components';
-import { GoogleMap, useLoadScript, Marker, InfoWindow, DirectionsRenderer, StandaloneSearchBox } from '@react-google-maps/api';
+import { GoogleMap, useLoadScript, Marker, InfoWindow, DirectionsRenderer } from '@react-google-maps/api';
 
 const containerStyle = {
   width: '900px',
@@ -49,8 +49,8 @@ function Map(props) {
         <MapContainer>
           <GoogleMap
             mapContainerStyle={containerStyle}
-            center={centerSample}
-            // center={props.center}
+            // center={centerSample}
+            center={props.center}
             zoom={12}
           >
 
@@ -60,6 +60,7 @@ function Map(props) {
               icon={"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"}
               position={location.coordinates}
               onClick={() => onSelect(location)}
+              animation='BOUNCE'
             />
           })}
 
@@ -73,6 +74,7 @@ function Map(props) {
               <>
               <WindowItem
               name={selected.name}
+              handleRemoveMarker={props.handleRemoveMarker}
               />
               <div>hiiiii</div>
               </>

@@ -26,7 +26,7 @@ const LandingPageContainer = styled.div`
 `
 
 const MapContainer = styled.div`
-  order: 1;
+  order: 2;
   flex-basis: 70;
   padding: 20px;
 `
@@ -36,7 +36,7 @@ const MapContainer = styled.div`
 // `
 
 const PlacesContainer = styled.div`
-  order: 2;
+  order: 1;
   flex-basis: 30;
   padding: 20px;
   overflow-y: scroll;
@@ -109,13 +109,13 @@ function App() {
         waypoints: waypoints
     }
 
-    console.log("dirRequest=");
-    console.log(directionsRequest);
+    // console.log("dirRequest=");
+    // console.log(directionsRequest);
 
     directionsService.route(directionsRequest, (result, status) => {
-      console.log("GOT RESPONSE");
-      console.log(status);
-      console.log(result);
+      // console.log("GOT RESPONSE");
+      // console.log(status);
+      // console.log(result);
 
       if (status === google.maps.DirectionsStatus.OK) {
         setDirections(result);
@@ -127,15 +127,24 @@ function App() {
 
   const handleTravelMode = (type) => {
     setTravelMode(type);
-  }
+  };
 
   const handleBuildRoute = () => {
     setRoutes(true);
-  }
+  };
 
   const handleDays = (numberOfDays) => {
     setDays(numberOfDays);
-  }
+  };
+
+  console.log('LOCATION')
+  console.log(locations)
+  const handleRemoveMarker = (marker) => {
+    let newList = locations.filter((location) => {
+       return location.name !== marker;
+    });
+    setLocations(newList);
+  };
 
 
   const renderPage = () => {
@@ -160,6 +169,7 @@ function App() {
               directions={directions}
               travelMode={travelMode}
               routes={routes}
+              handleRemoveMarker={handleRemoveMarker}
             />
           </MapContainer>
           {/* <Days

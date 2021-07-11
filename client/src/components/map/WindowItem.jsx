@@ -2,13 +2,15 @@
 import React, { useState, useEffect } from 'react';
 
 
-function WindowItem(props) {
+function WindowItem({name, handleRemoveMarker}) {
+
 
   return (
     <>
 
     <div>window here</div>
-    {props.name}
+    {name}
+    <button onClick={() => handleRemoveMarker(name)}>remove location</button>
 
     </>
   )
