@@ -1,5 +1,15 @@
 import React, { useState } from 'react';
 import SearchBox from './SearchBox.jsx';
+import styled from 'styled-components';
+
+const ImageBackground = styled.img`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+`
+
+
 
 function LandingPage(props) {
 
@@ -7,20 +17,22 @@ function LandingPage(props) {
 
   const handleSubmitDays = (event) => {
     event.preventDefault();
-    console.log('value 1')
-    console.log(number)
+    // console.log('value 1')
+    // console.log(number)
     props.handleDays(number)
   };
 
   const handleChange = (event) => {
-    console.log('value 2')
+    // console.log('value 2')
     setNumber(event.target.value)
-    console.log(event.target.value)
-    console.log(number)
+    // console.log(event.target.value)
+    // console.log(number)
   };
 
   return (
    <>
+    <ImageBackground src='../../../TravelBackground.jpeg'></ImageBackground>
+    <div className="curtain"></div>
     <SearchBox
       getCenterDestination={props.getCenterDestination}
     />
