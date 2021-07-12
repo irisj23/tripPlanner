@@ -64,16 +64,33 @@ function SearchBox(props) {
 
 
   return (
-    <SearchStyle.SearchContainer>
-      <form onSubmit={handleSubmitDest}>
-        <SearchStyle.Search
-          ref={autoCompleteRef}
+
+    // <SearchStyle.SearchContainer>
+    //   <form onSubmit={handleSubmitDest}>
+
+    //     <SearchStyle.Search
+    //       ref={autoCompleteRef}
+    //       onChange={(e) => setQuery(e.target.value)}
+    //       placeholder="Where are we going?"
+    //       value={query}
+    //     />
+    //   </form>
+    // </SearchStyle.SearchContainer>
+<form onSubmit={handleSubmitDest}>
+  <div class="field">
+    <div class="control is-medium is-loading">
+      <input
+        class="input is-medium is-rounded"
+        type="text"
+        ref={autoCompleteRef}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Where are we going?"
           value={query}
         />
-      </form>
-    </SearchStyle.SearchContainer>
+    </div>
+  </div>
+</form>
+
   );
 }
 

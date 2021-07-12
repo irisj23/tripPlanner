@@ -162,12 +162,10 @@ function App() {
   const renderPage = () => {
     if (!clicked) {
       return (
-        <LandingPageContainer>
           <LandingPage
             getCenterDestination={getCenterDestination}
             handleDays={handleDays}
           />
-        </LandingPageContainer>
       );
     } else {
         return (

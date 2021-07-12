@@ -78,7 +78,7 @@ function Map(props) {
         mapContainerStyle={containerStyle}
         // center={centerSample}
         center={props.center}
-        zoom={12}
+        zoom={13.5}
       >
 
       {!props.routes && props.locations.length > 0 && props.locations.map((location, index) => {

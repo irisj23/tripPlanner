@@ -30,16 +30,23 @@ function LandingPage(props) {
   };
 
   return (
-   <>
-    <ImageBackground src='../../../TravelBackground.jpeg'></ImageBackground>
-    <div className="curtain"></div>
-    <SearchBox
-      getCenterDestination={props.getCenterDestination}
-    />
-    {/* <label>Enter Days:</label>
-      <input name="days" value={number} placeholder="" onChange={handleChange}/>
-      <button onClick={handleSubmitDays}>ENTER</button> */}
-   </>
+    <div className="fullHeight">
+      <ImageBackground src='../../../TravelBack2.jpeg'></ImageBackground>
+      <div className="curtain"></div>
+
+      <div className="fullHeight columns is-vcentered">
+        <div class="fullHeight column is-one-third"></div>
+        <div class="column is-one-third">
+          <SearchBox
+            getCenterDestination={props.getCenterDestination}
+          />
+        </div>
+        <div class="fullHeight column is-one-third"></div>
+
+
+    </div>
+  </div>
+
   );
 }
 
