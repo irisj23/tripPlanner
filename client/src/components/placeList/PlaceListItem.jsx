@@ -1,4 +1,28 @@
 import React, { useState } from 'react';
+import { FaMapMarkerAlt } from 'react-icons/fa';
+import styled from 'styled-components';
+
+const ImageBackground = styled.img`
+  position: absolute;
+  width: 30px;
+  height: 40px;
+
+`
+
+const Wrapper = styled.div`
+display: flex;
+`
+
+const Icon = styled.div`
+  order: 1;
+  flex-basis: 30;
+  margin: 0;
+  padding: 3px;
+`
+
+const LocationName = styled.div`
+  order: 2;
+`
 
 
 function PlaceListItem(props) {
@@ -6,6 +30,7 @@ function PlaceListItem(props) {
   // console.log(props.place)
   const [click, setClick] = useState(false);
   const [showNotes, setShowNotes] = useState(false);
+  const [removeLocation, setRemoveLocation] = useState(false);
   const [notes, setNotes] = useState('');
 
   const handleAddNote = () => {
@@ -20,18 +45,32 @@ function PlaceListItem(props) {
 
   };
 
+  const removeMarker = () => {
+    props.handleRemoveMarker(props.place);
+    // props.handleRemoveWindow(props.place);
+  };
+
   // const buttonText = notes.length > 1 ? 'edit notes' : 'add note';
   // const showNotes = notes.length > 0 ? true : false;
-
+console.log('here:')
+console.log(props.place)
 
   return (
-    <>
-     <li onClick={() => setClick(!click)}>{props.place}</li>
+    <Wrapper>
+      <Icon>
+    <FaMapMarkerAlt/>
+
+    </Icon>
+    <LocationName>
+     <ul onClick={() => setClick(!click)}>{props.place}</ul>
 
       {click && !showNotes &&  (
         <>
         <button>add note</button>
+
+        <button onClick={removeMarker}>remove location</button>
         </>
+
       )}
 
       {/* {click && notes.length > 1 && (
@@ -45,7 +84,8 @@ function PlaceListItem(props) {
 
         </>
       )} */}
-    </>
+      </LocationName>
+    </Wrapper>
   )
 }
 

@@ -84,8 +84,9 @@ function SearchBox(props) {
         type="text"
         ref={autoCompleteRef}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Where are we going?"
+          placeholder="ENTER DESTINATION"
           value={query}
+
         />
     </div>
   </div>

@@ -31,15 +31,22 @@ function LandingPage(props) {
 
   return (
     <div className="fullHeight">
-      <ImageBackground src='../../../TravelBack2.jpeg'></ImageBackground>
+      <ImageBackground src='/TravelBack2.jpeg'></ImageBackground>
       <div className="curtain"></div>
 
       <div className="fullHeight columns is-vcentered">
         <div class="fullHeight column is-one-third"></div>
-        <div class="column is-one-third">
+        <div class="column is-one-third centered">
+          <img src='/logo.png'/>
           <SearchBox
             getCenterDestination={props.getCenterDestination}
           />
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
         </div>
         <div class="fullHeight column is-one-third"></div>
 

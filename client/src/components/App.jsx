@@ -38,7 +38,7 @@ const PlacesContainer = styled.div`
   order: 1;
   flex-basis: 30;
   padding: 20px;
-  overflow-y: scroll;
+
 `
 
 // const PhotoWrap = styled.img`
@@ -66,6 +66,8 @@ function App() {
   const [routes, setRoutes] = useState(false);
   const [days, setDays] = useState([]);
   const [photoRef, setPhotoRef] = useState(null);
+  const [destName, setDestName] = useState('');
+  const [markerPhoto, setMarkerPhoto] = useState(null);
 
 
   // useEffect(() => {
@@ -83,6 +85,7 @@ function App() {
       // console.log(res.data)
       setCenter(res.data.coordinates);
       setPhotoRef(res.data.photoRef);
+      setDestName(res.data.name);
       setClicked(true);
 
     } catch (error) {
@@ -91,7 +94,7 @@ function App() {
     }
   };
 
-  const handleAddPlace = (newPlace) => {
+  const handleAddPlace = async (newPlace) => {
 
     let newPlaces = locations.concat(newPlace.coordinates);
     setLocations(newPlaces);
@@ -99,10 +102,24 @@ function App() {
 
     if (newPlaces.length <= 1) {
       return;
+    };
+
+    try {
+      const res = await axios.get(`/place?input=${newPlace.name}`);
+      // console.log('app result here:')
+      // console.log(res.data)
+      setMarkerPhoto(res.data.photoRef);
+
+    } catch (error) {
+      console.log(error)
+      setIsError(true);
     }
 
+
+
+
     const waypoints = newPlaces.map(p =>({
-      location: p.name,
+      location: new google.maps.LatLng(p.coordinates.lat, p.coordinates.lng),// p.name,
       stopover: true
     }));
 
@@ -119,15 +136,15 @@ function App() {
         destination: destination,
         travelMode: travelMode,
         waypoints: waypoints
-    }
+    };
 
-    // console.log("dirRequest=");
-    // console.log(directionsRequest);
+    console.log("dirRequest=");
+    console.log(directionsRequest);
 
     directionsService.route(directionsRequest, (result, status) => {
-      // console.log("GOT RESPONSE");
-      // console.log(status);
-      // console.log(result);
+      console.log("GOT RESPONSE");
+      console.log(status);
+      console.log(result);
 
       if (status === google.maps.DirectionsStatus.OK) {
         setDirections(result);
@@ -136,6 +153,12 @@ function App() {
       }
     });
   };
+
+
+
+
+  // console.log('DIRECTION')
+  // console.log(directions)
 
   const handleTravelMode = (type) => {
     setTravelMode(type);
@@ -151,9 +174,9 @@ function App() {
 
   console.log('LOCATION')
   console.log(locations)
-  const handleRemoveMarker = (marker) => {
+  const handleRemoveMarker = (place) => {
     let newList = locations.filter((location) => {
-       return location.name !== marker;
+       return location.name !== place;
     });
     setLocations(newList);
   };
@@ -169,18 +192,24 @@ function App() {
       );
     } else {
         return (
-          <div className="fullHeight columns">
-            <div class="fullHeight column is-one-thirds">
+          <div className="fullHeight columns fullWidth">
+            <div class="fullHeight fullWidth column is-one-thirds">
+
               <PlaceList
                 locations={locations}
                 handleBuildRoute={handleBuildRoute}
                 handleTravelMode={handleTravelMode}
                 handleAddPlace={handleAddPlace}
                 days={days}
+                photoRef={photoRef}
+                destName={destName}
+                handleRemoveMarker={handleRemoveMarker}
               />
           </div>
 
+
             <div class="fullHeight column is-two-thirds test3">
+              <div className="fullHeight shadow"></div>
               <Map
                 center={center}
                 locations={locations}
@@ -189,9 +218,11 @@ function App() {
                 directions={directions}
                 travelMode={travelMode}
                 routes={routes}
-                handleRemoveMarker={handleRemoveMarker}
+                // handleRemoveMarker={handleRemoveMarker}
+                markerPhoto={markerPhoto}
               />
-            </div>
+              </div>
+
           </div>
       );
     }

@@ -21,11 +21,18 @@ function Form(props) {
 
   return (
     <>
-      <label>LOCATION:</label>
+      <label>ENTER LOCATION:</label>
 
-      <input name="destination" value={location} placeholder="" onChange={(e) => setLocation(e.target.value)}/>
-
-      <button onClick={handleSubmitLocation}>ENTER</button>
+      <div class="field has-addons">
+        <div class="control">
+          <input class="input" type="text" placeholder="Find a repository" name="destination" value={location} placeholder="" onChange={(e) => setLocation(e.target.value)}/>
+        </div>
+        <div class="control">
+          <a class="button is-info" onClick={handleSubmitLocation}>
+            SEARCH
+          </a>
+        </div>
+      </div>
 
     </>
   )

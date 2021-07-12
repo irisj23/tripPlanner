@@ -1,5 +1,6 @@
 node_modules
 package-lock.json
 client/src/components/pics/
+client.dist
 bundle.js
 config.js

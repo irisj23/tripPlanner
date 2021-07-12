@@ -6,6 +6,10 @@ import axios from 'axios';
 import WindowItem from './WindowItem.jsx';
 import styled from 'styled-components';
 import { GoogleMap, useLoadScript, Marker, InfoWindow, DirectionsRenderer } from '@react-google-maps/api';
+import { ScriptLoaded } from '@react-google-maps/api';
+import { FaMapMarkerAlt } from 'react-icons/fa';
+// const ScriptLoaded = require("@react-google-maps/api/dist/docs/ScriptLoaded").default;
+
 
 const containerStyle = {
   width: '100%',
@@ -40,6 +44,9 @@ const Background = styled.div`
   padding: 0;
 `
 
+
+
+
 function Map(props) {
 
   const {isLoaded, loadError} = useLoadScript({
@@ -68,6 +75,8 @@ function Map(props) {
     setSelected(selected);
   }
 
+  let url = `/photo?photoRef=${props.markerPhoto}`;
+  let image = 'http://localhost:3002/placemarker.png';
 
   const renderMap = () => {
 
@@ -84,10 +93,10 @@ function Map(props) {
       {!props.routes && props.locations.length > 0 && props.locations.map((location, index) => {
           return <Marker
             key={index}
-            icon={"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"}
             position={location.coordinates}
             onClick={() => onSelect(location)}
-            animation='BOUNCE'
+            // icon={FaMapMarkerAlt}
+            animation={window.google.maps.Animation.DROP}
           />
         })}
 
@@ -101,10 +110,11 @@ function Map(props) {
             <>
             <WindowItem
               name={selected.name}
-              handleRemoveMarker={props.handleRemoveMarker}
-              handleRemoveWindow={handleRemoveWindow}
+              // handleRemoveMarker={props.handleRemoveMarker}
+              // handleRemoveWindow={handleRemoveWindow}
+              photoRef={url}
             />
-            <div>hiiiii</div>
+
             </>
           </InfoWindow>
         )}
@@ -165,7 +175,7 @@ export default Map;
               handleRemoveMarker={props.handleRemoveMarker}
               handleRemoveWindow={handleRemoveWindow}
               />
-              <div>hiiiii</div>
+
               </>
             </InfoWindow>
           )}

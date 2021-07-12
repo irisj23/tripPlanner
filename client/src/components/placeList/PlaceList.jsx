@@ -27,7 +27,15 @@ const PlaceListContainer = styled.div`
 const RouteContainer = styled.div`
   order: 3;
   flex-basis: 30;
+  justify-content: center;
+  padding-left: 50px;
 `
+
+const PlacePhoto = styled.img`
+  width: 100%;
+  height: 300px;
+`
+
 
 
 
@@ -43,41 +51,58 @@ function PlaceList(props) {
     props.handleBuildRoute()
   };
 
+  let url = `/photo?photoRef=${props.photoRef}`;
 
-  return(
-    <>
-    <Wrapper>
-      <FormContainer>
-      <Form
-        handleAddPlace={props.handleAddPlace}
-      />
-      </FormContainer>
+  return (
+    <div>
+      <PlacePhoto src={url}/>
+        <h2 className="title is-2 destTitle">{props.destName}</h2>
 
-      <PlaceListContainer>
-      <ul>
-      {props.locations.length > 0 && props.locations.map((location, index) => {
-        return <PlaceListItem
-          key={index}
-          place={location.name}
-        />
-      })}
-      </ul>
-      </PlaceListContainer>
+      <Wrapper>
+        <FormContainer>
+          <Form
+            handleAddPlace={props.handleAddPlace}
+          />
+        </FormContainer>
 
-<RouteContainer>
-      <label>Select Transit:</label>
-
-      <select onChange={handleTransit}>
-        <option value="DRIVING">Driving</option>
-        <option value="BICYCLING">BICYCLING</option>
-        <option value="TRANSIT">TRANSIT</option>
-        <option value="WALKING">WALKING</option>
-      </select>
-
-      <button onClick={handleBuildRouteClick}>BUILD ROUTE</button>
-      </RouteContainer>
+        <PlaceListContainer>
+          <>
+          {props.locations.length > 0 && props.locations.map((location, index) => {
+            return <PlaceListItem
+              key={index}
+              place={location.name}
+              handleRemoveMarker={props.handleRemoveMarker}
+              // handleRemoveWindow={handleRemoveWindow}
+            />
+          })}
+          </>
+        </PlaceListContainer>
       </Wrapper>
-    </>
+      <br/>
+    <br/>
+    <RouteContainer>
+    <span>SELECT TRANSIT:</span>
+      <div class="field has-addons">
+      <div class="control">
+      <div class="select is-fullwidth">
+
+        <select name="transit">
+          <option value="DRIVING">DRIVING</option>
+          <option value="BICYCLING">BICYCLING</option>
+          <option value="TRANSIT">TRANSIT</option>
+          <option value="WALKING">WALKING</option>
+        </select>
+
+      </div>
+      </div>
+      <div class="control">
+      <button type="submit" class="button is-info" onClick={handleBuildRouteClick}>BUILD ROUTE</button>
+      </div>
+      </div>
+      </RouteContainer>
+
+
+    </div>
   )
 
 }
