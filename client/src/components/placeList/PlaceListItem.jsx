@@ -66,9 +66,9 @@ console.log(props.place)
 
       {click && !showNotes &&  (
         <>
-        <button>add note</button>
+        <button class="button is-info is-small is-outlined">add note</button>
 
-        <button onClick={removeMarker}>remove location</button>
+        <button class="button is-info is-small is-outlined" sonClick={removeMarker}>remove location</button>
         </>
 
       )}
