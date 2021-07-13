@@ -68,7 +68,7 @@ console.log(props.place)
         <>
         <button class="button is-info is-small is-outlined">add note</button>
 
-        <button class="button is-info is-small is-outlined" sonClick={removeMarker}>remove location</button>
+        <button class="button is-info is-small is-outlined" onClick={removeMarker}>remove location</button>
         </>
 
       )}
