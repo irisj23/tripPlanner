@@ -45,8 +45,6 @@ const Background = styled.div`
 `
 
 
-
-
 function Map(props) {
 
   const {isLoaded, loadError} = useLoadScript({
@@ -76,7 +74,7 @@ function Map(props) {
   }
 
   let url = `/photo?photoRef=${props.markerPhoto}`;
-  let image = 'http://localhost:3002/placemarker.png';
+  // let image = '/placemarker.png';
 
   const renderMap = () => {
 
@@ -87,7 +85,7 @@ function Map(props) {
         mapContainerStyle={containerStyle}
         // center={centerSample}
         center={props.center}
-        zoom={13.5}
+        zoom={13.3}
       >
 
       {!props.routes && props.locations.length > 0 && props.locations.map((location, index) => {

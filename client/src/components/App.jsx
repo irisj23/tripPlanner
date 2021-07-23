@@ -130,7 +130,7 @@ function App() {
     console.log("MAKING REQUEST");
     console.log("dirservice=" + directionsService);
 
-    // start here, hardcode stuff
+
     const directionsRequest = {
         origin: origin,
         destination: destination,
