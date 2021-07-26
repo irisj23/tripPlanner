@@ -9,17 +9,22 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'mongo connection error'));
 db.once('open', () => console.log('yay connected to mongo'));
 
-const tripSchema = new mongoose.Schema({
+const destination = new mongoose.Schema({
   destination: String,
-  destPhoto: String,
-  destCoords: {lat: Number, lng: Number},
-  location: {
-    name: String,
-    photo: String,
-    coords: {lat: Number, lng: Number},
-    notes: String
-  }
+  photo: String,
+  coords: {lat: Number, lng: Number},
 });
 
-const Trip = mongoose.model('Trip', tripSchema);
 
+const locations = new mongoose.Schema({
+  name: String,
+  photo: String,
+  coords: {lat: Number, lng: Number},
+  notes: [{
+    id: Number,
+    note: String
+  }]
+})
+
+const Destination = mongoose.model('Destination', destination);
+const Locations = mongoose.model('Locations', locations);
