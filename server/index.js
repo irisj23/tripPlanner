@@ -5,7 +5,7 @@ const morgan = require('morgan');
 const path = require('path')
 const helper = require('../server/helpers/index.js');
 // const router = require('./routes.js');
-// const db = require('../db');
+const db = require('../db');
 
 app.use(morgan('dev'));
 
