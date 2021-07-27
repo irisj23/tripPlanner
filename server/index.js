@@ -27,6 +27,20 @@ app.get('/place', async (req, res) => {
   }
 });
 
+app.get('/destination', async (req, res) => {
+  console.log(req.query.input)
+  try {
+    const result = await helper.getLongLatByPlace(req.query.input);
+    await db.save(result);
+    console.log('get place result here:')
+    console.log(result);
+    res.status(200).send(result)
+  } catch(error) {
+    console.log('get place error here:')
+    console.log(error)
+  }
+});
+
 app.get('/directions', async (req, res) => {
   let origin = req.query.origin;
   let destination = req.query.destination;
