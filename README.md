@@ -2,16 +2,16 @@
 
 
 <p align="center">
-<img src="./overview.gif" width="850" height="500">
+<img src="./tripplanner.png" width="850" height="500">
 </p>
 
 <h2 align="center">Features:</h2>
 
 
 <h3 align="center">
-📍 Dynamic viewport based on user-selected destination stops
-
 📍 Autocomplete search box integrated with Google Places API
+
+📍 Dynamic viewport based on user-selected destination stops
 </h3>
 
 </h3>
