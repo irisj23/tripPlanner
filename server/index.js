@@ -27,11 +27,25 @@ app.get('/place', async (req, res) => {
   }
 });
 
+app.get('/location', async (req, res) => {
+  console.log(req.query.input)
+  try {
+    const result = await helper.getLongLatByPlace(req.query.input);
+    await db.saveLocation(result);
+    console.log('get place result here:')
+    console.log(result);
+    res.status(200).send(result)
+  } catch(error) {
+    console.log('get place error here:')
+    console.log(error)
+  }
+});
+
 app.get('/destination', async (req, res) => {
   console.log(req.query.input)
   try {
     const result = await helper.getLongLatByPlace(req.query.input);
-    await db.save(result);
+    await db.saveDestination(result);
     console.log('get place result here:')
     console.log(result);
     res.status(200).send(result)
